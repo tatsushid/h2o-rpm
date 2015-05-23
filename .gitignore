@@ -1,0 +1,3 @@
+*.build
+*.build.bak
+rpmbuild/SOURCES/*.tar.gz

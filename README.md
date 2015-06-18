@@ -36,7 +36,7 @@ After building, please copy RPM under `*.build` directory to your system and
 run
 
 ```bash
-yum install h2o-1.2.0-1.el6.x86_64.rpm
+yum install h2o-1.3.0-1.el6.x86_64.rpm
 ```
 
 Once the installation finishes successfully, you can see a configuration file

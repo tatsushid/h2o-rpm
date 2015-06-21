@@ -78,7 +78,7 @@ mkdir -p $RPM_BUILD_ROOT/%{_libdir}
 install -m 644 -p libh2o-evloop.a \
         $RPM_BUILD_ROOT%{_libdir}/libh2o-evloop.a
 
-%if %{_arch} == "x86_64"
+%ifarch x86_64
 mv $RPM_BUILD_ROOT%{_prefix}/lib/libh2o-evloop.so \
         $RPM_BUILD_ROOT%{_libdir}/libh2o-evloop.so
 

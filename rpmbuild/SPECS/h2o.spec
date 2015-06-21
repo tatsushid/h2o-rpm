@@ -30,7 +30,7 @@ Group: System Environment/Daemons
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root
 BuildRequires: cmake >= 2.8, gcc-c++, openssl-devel, pkgconfig
 %if %{with_systemd}
-BuildRequires: systemd-devel
+BuildRequires: systemd-units
 %endif
 Requires: openssl, perl
 %if !%{with_systemd}

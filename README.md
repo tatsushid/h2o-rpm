@@ -2,7 +2,7 @@ H2O Unofficial RPM package builder
 ==================================
 
 This provides [H2O](https://h2o.github.io/) RPM spec file and required files
-e.g. SysVinit, systemd service etc. to build RPM for RHEL/CentOS 6/7
+e.g. SysVinit, systemd service etc. to build RPM for Fedora and RHEL/CentOS 6/7
 
 ## How to build RPM
 
@@ -23,6 +23,7 @@ Now this understands
 
 - centos6
 - centos7
+- fedora
 
 build options.
 

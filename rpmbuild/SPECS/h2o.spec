@@ -21,7 +21,7 @@
 Summary: H2O - The optimized HTTP/1, HTTP/2 server
 Name: h2o
 Version: 1.3.1
-Release: 2%{?dist}
+Release: 3%{?dist}
 URL: http://h2o.github.io/
 Source0: https://github.com/h2o/h2o/archive/v%{version}.tar.gz
 Source1: index.html
@@ -72,6 +72,10 @@ make %{?_smp_mflags}
 # for building shared library
 cmake -DWITH_BUNDLED_SSL=on -DCMAKE_INSTALL_PREFIX=%{_prefix} -DBUILD_SHARED_LIBS=on .
 make %{?_smp_mflags}
+
+%if !%{with_systemd}
+sed -i -e 's,\( *\).*systemctl.* >,\1/sbin/service h2o reload >,' %{SOURCE2}
+%endif
 
 %install
 rm -rf $RPM_BUILD_ROOT
@@ -226,6 +230,9 @@ rm -rf $RPM_BUILD_ROOT
 %{_includedir}/h2o
 
 %changelog
+* Mon Jun 22 2015 Tatsushi Demachi <tdemachi@gmail.com> - 1.3.1-3
+- fix logrotate
+
 * Sun Jun 21 2015 Tatsushi Demachi <tdemachi@gmail.com> - 1.3.1-2
 - add fedora support
 

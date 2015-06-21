@@ -37,13 +37,13 @@ After building, please copy RPM under `*.build` directory to your system and
 run
 
 ```bash
-yum install h2o-1.3.1-2.el6.x86_64.rpm
+yum install h2o-1.3.1-3.el6.x86_64.rpm
 ```
 
 or if you use Fedora 22 or later
 
 ```bash
-dnf install h2o-1.3.1-2.fc22.x86_64.rpm
+dnf install h2o-1.3.1-3.fc22.x86_64.rpm
 ```
 
 Once the installation finishes successfully, you can see a configuration file

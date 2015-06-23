@@ -2,7 +2,8 @@ H2O Unofficial RPM package builder
 ==================================
 
 This provides [H2O](https://h2o.github.io/) RPM spec file and required files
-e.g. SysVinit, systemd service etc. to build RPM for Fedora and RHEL/CentOS 6/7
+e.g. SysVinit, systemd service etc. to build RPM for Fedora, RHEL/CentOS 6/7
+and OpenSUSE.
 
 ## How to build RPM
 
@@ -24,6 +25,7 @@ Now this understands
 - centos6
 - centos7
 - fedora
+- opensuse
 
 build options.
 
@@ -37,13 +39,19 @@ After building, please copy RPM under `*.build` directory to your system and
 run
 
 ```bash
-yum install h2o-1.3.1-3.el6.x86_64.rpm
+yum install h2o-1.3.1-4.el6.x86_64.rpm
 ```
 
 or if you use Fedora 22 or later
 
 ```bash
-dnf install h2o-1.3.1-3.fc22.x86_64.rpm
+dnf install h2o-1.3.1-4.fc22.x86_64.rpm
+```
+
+or if you use OpenSUSE
+
+```bash
+zypper install h2o-1.3.1-4.x86_64.rpm
 ```
 
 Once the installation finishes successfully, you can see a configuration file

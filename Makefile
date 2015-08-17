@@ -6,7 +6,7 @@ centos7: IMAGE_NAME := $(IMAGE_NAME)-ce7
 fedora: IMAGE_NAME := $(IMAGE_NAME)-fc22
 opensuse: IMAGE_NAME := $(IMAGE_NAME)-suse13.2
 
-.PHONY: all clean centos6 centos7
+.PHONY: all clean centos6 centos7 fedora opensuse
 
 all: centos6 centos7 fedora opensuse
 centos6: centos6.build

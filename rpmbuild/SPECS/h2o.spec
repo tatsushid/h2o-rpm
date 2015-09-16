@@ -20,7 +20,7 @@
 
 Summary: H2O - The optimized HTTP/1, HTTP/2 server
 Name: h2o
-Version: 1.4.4
+Version: 1.4.5
 Release: 1%{?dist}
 URL: http://h2o.github.io/
 Source0: https://github.com/h2o/h2o/archive/v%{version}.tar.gz
@@ -259,6 +259,9 @@ rm -rf $RPM_BUILD_ROOT
 %{_includedir}/h2o
 
 %changelog
+* Wed Sep 16 2015 Tatsushi Demachi <tdemachi@gmail.com> - 1.4.5-1
+- Update to 1.4.5
+
 * Tue Aug 18 2015 Tatsushi Demachi <tdemachi@gmail.com> - 1.4.4-1
 - Update to 1.4.4
 

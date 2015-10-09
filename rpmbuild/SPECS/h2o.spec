@@ -21,7 +21,7 @@
 Summary: H2O - The optimized HTTP/1, HTTP/2 server
 Name: h2o
 Version: 1.5.0
-Release: 1%{?dist}
+Release: 2%{?dist}
 URL: http://h2o.github.io/
 Source0: https://github.com/h2o/h2o/archive/v%{version}.tar.gz
 Source1: index.html
@@ -29,6 +29,7 @@ Source2: h2o.logrotate
 Source3: h2o.init
 Source4: h2o.service
 Source5: h2o.conf
+Patch1: h2o-cmake-version.patch
 License: MIT
 Group: System Environment/Daemons
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root
@@ -65,6 +66,7 @@ which allow you to build your own software using H2O.
 
 %prep
 %setup -q
+%patch1 -p1 -b .cmakeversion
 
 %build
 cmake -DWITH_BUNDLED_SSL=on -DCMAKE_INSTALL_PREFIX=%{_prefix} .
@@ -259,6 +261,9 @@ rm -rf $RPM_BUILD_ROOT
 %{_includedir}/h2o
 
 %changelog
+* Wed Oct  9 2015 Tatsushi Demachi <tdemachi@gmail.com> - 1.5.0-2
+- Add patch to fix CMake version issue for CentOS 7 build
+
 * Thu Oct  8 2015 Donald Stufft <donald@stufft.io> - 1.5.0-1
 - Update to 1.5.0
 

@@ -21,8 +21,8 @@
 Summary: H2O - The optimized HTTP/1, HTTP/2 server
 Name: h2o
 Version: 1.5.2
-Release: 1%{?dist}
-URL: http://h2o.github.io/
+Release: 2%{?dist}
+URL: https://h2o.examp1e.net/
 Source0: https://github.com/h2o/h2o/archive/v%{version}.tar.gz
 Source1: index.html
 Source2: h2o.logrotate
@@ -34,6 +34,11 @@ License: MIT
 Group: System Environment/Daemons
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root
 BuildRequires: cmake >= 2.8, gcc-c++, openssl-devel, pkgconfig
+%if 0%{?rhel} == 6
+BuildRequires: ruby193, bison
+%else
+BuildRequires: ruby >= 1.9, bison
+%endif
 Requires: openssl, perl
 %if %{with_systemd}
 %if 0%{?suse_version}
@@ -69,11 +74,11 @@ which allow you to build your own software using H2O.
 %patch1 -p1 -b .cmakeversion
 
 %build
-cmake -DWITH_BUNDLED_SSL=on -DCMAKE_INSTALL_PREFIX=%{_prefix} .
+cmake -DWITH_BUNDLED_SSL=on -DWITH_MRUBY=on -DCMAKE_INSTALL_PREFIX=%{_prefix} .
 make %{?_smp_mflags}
 
 # for building shared library
-cmake -DWITH_BUNDLED_SSL=on -DCMAKE_INSTALL_PREFIX=%{_prefix} -DBUILD_SHARED_LIBS=on .
+cmake -DWITH_BUNDLED_SSL=on -DWITH_MRUBY=on -DCMAKE_INSTALL_PREFIX=%{_prefix} -DBUILD_SHARED_LIBS=on .
 make %{?_smp_mflags}
 
 %if !%{with_systemd}
@@ -261,6 +266,10 @@ rm -rf $RPM_BUILD_ROOT
 %{_includedir}/h2o
 
 %changelog
+* Mon Nov  2 2015 Tatsushi Demachi <tdemachi@gmail.com> - 1.5.2-2
+- Add mruby support
+- Fix official URL
+
 * Tue Oct 20 2015 Tatsushi Demachi <tdemachi@gmail.com> - 1.5.2-1
 - Update to 1.5.2
 

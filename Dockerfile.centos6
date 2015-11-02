@@ -1,11 +1,12 @@
 FROM centos:6
 ENV HOME /
 RUN yum update -y
-RUN yum install -y rpm-build redhat-rpm-config rpmdevtools cmake gcc-c++ tar openssl-devel
+RUN yum install -y rpm-build redhat-rpm-config rpmdevtools cmake gcc-c++ tar openssl-devel bison centos-release-SCL
+RUN yum install -y ruby193
 RUN rpmdev-setuptree
 RUN echo '%dist   .el6' >> /.rpmmacros
 ADD ./rpmbuild/ /rpmbuild/
 RUN chown -R root:root /rpmbuild
-RUN rpmbuild -ba /rpmbuild/SPECS/h2o.spec
+RUN scl enable ruby193 -- rpmbuild -ba /rpmbuild/SPECS/h2o.spec
 RUN tar -czf /tmp/h2o.tar.gz -C /rpmbuild RPMS SRPMS
 CMD ["/bin/true"]

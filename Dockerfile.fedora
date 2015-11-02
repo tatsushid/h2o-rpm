@@ -1,7 +1,7 @@
 FROM fedora:22
 ENV HOME /
 RUN dnf update -y
-RUN dnf install -y rpm-build redhat-rpm-config rpmdevtools cmake gcc-c++ tar make openssl-devel
+RUN dnf install -y rpm-build redhat-rpm-config rpmdevtools cmake gcc-c++ tar make openssl-devel ruby bison
 RUN rpmdev-setuptree
 RUN echo '%dist   .fc22' >> /.rpmmacros
 ADD ./rpmbuild/ /rpmbuild/

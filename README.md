@@ -45,7 +45,7 @@ yum install h2o-1.5.2-2.el6.x86_64.rpm
 or if you use Fedora 22 or later
 
 ```bash
-dnf install h2o-1.5.2-2.fc22.x86_64.rpm
+dnf install h2o-1.5.2-2.fc23.x86_64.rpm
 ```
 
 or if you use OpenSUSE

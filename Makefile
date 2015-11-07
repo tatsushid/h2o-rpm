@@ -1,4 +1,4 @@
-SOURCE_ARCHIVE := v1.5.2.tar.gz
+SOURCE_ARCHIVE := v1.5.3.tar.gz
 TARGZ_FILE := h2o.tar.gz
 IMAGE_NAME := h2o-package
 centos6: IMAGE_NAME := $(IMAGE_NAME)-ce6

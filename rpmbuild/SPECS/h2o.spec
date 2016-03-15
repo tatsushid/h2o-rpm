@@ -20,7 +20,7 @@
 
 Summary: H2O - The optimized HTTP/1, HTTP/2 server
 Name: h2o
-Version: 1.7.0
+Version: 1.7.1
 Release: 1%{?dist}
 URL: https://h2o.examp1e.net/
 Source0: https://github.com/h2o/h2o/archive/v%{version}.tar.gz
@@ -61,7 +61,7 @@ as a library.
 %package devel
 Group: Development/Libraries
 Summary: Development interfaces for H2O
-Requires: openssl-devel
+Requires: openssl-devel, pkgconfig
 Requires: h2o = %{version}-%{release}
 
 %description devel
@@ -102,6 +102,13 @@ mv $RPM_BUILD_ROOT%{_prefix}/lib/libh2o-evloop.so \
 
 rm -rf $RPM_BUILD_ROOT%{_prefix}/lib
 %endif
+
+mkdir -p $RPM_BUILD_ROOT/%{_libdir}/pkgconfig
+install -m 644 -p libh2o.pc \
+        $RPM_BUILD_ROOT%{_libdir}/pkgconfig/libh2o.pc
+
+install -m 644 -p libh2o-evloop.pc \
+        $RPM_BUILD_ROOT%{_libdir}/pkgconfig/libh2o-evloop.pc
 
 mkdir -p $RPM_BUILD_ROOT%{_sysconfdir}/h2o
 install -m 644 -p $RPM_SOURCE_DIR/h2o.conf \
@@ -237,11 +244,13 @@ rm -rf $RPM_BUILD_ROOT
 
 %{_bindir}/h2o
 %{_datadir}/h2o/annotate-backtrace-symbols
+%{_datadir}/h2o/fastcgi-cgi
 %{_datadir}/h2o/fetch-ocsp-response
 %{_datadir}/h2o/kill-on-close
 %{_datadir}/h2o/setuidgid
 %{_datadir}/h2o/start_server
 
+%{_datadir}/h2o/mruby
 %{_datadir}/doc
 
 %if 0%{?suse_version} == 0
@@ -260,10 +269,16 @@ rm -rf $RPM_BUILD_ROOT
 %files devel
 %{_libdir}/libh2o-evloop.a
 %{_libdir}/libh2o-evloop.so
+%{_libdir}/pkgconfig/libh2o.pc
+%{_libdir}/pkgconfig/libh2o-evloop.pc
 %{_includedir}/h2o.h
 %{_includedir}/h2o
 
 %changelog
+* Mon Mar 14 2016 Tatsushi Demachi <tdemachi@gmail.com> - 1.7.1-1
+- Update to 1.7.1
+- Add pkgconfig dependency to devel sub package
+
 * Fri Feb  5 2016 Tatsushi Demachi <tdemachi@gmail.com> - 1.7.0-1
 - Update to 1.7.0
 

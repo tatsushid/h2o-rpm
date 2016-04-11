@@ -36,7 +36,7 @@ BuildRequires: cmake >= 2.8, gcc-c++, openssl-devel, pkgconfig
 %if 0%{?rhel} == 6
 BuildRequires: ruby193, bison
 %else
-BuildRequires: ruby >= 1.9, bison
+BuildRequires: ruby-devel >= 1.9, bison
 %endif
 Requires: openssl, perl
 %if %{with_systemd}

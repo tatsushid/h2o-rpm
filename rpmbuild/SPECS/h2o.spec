@@ -20,7 +20,7 @@
 
 Summary: H2O - The optimized HTTP/1, HTTP/2 server
 Name: h2o
-Version: 1.7.1
+Version: 1.7.2
 Release: 1%{?dist}
 URL: https://h2o.examp1e.net/
 Source0: https://github.com/h2o/h2o/archive/v%{version}.tar.gz
@@ -275,6 +275,9 @@ rm -rf $RPM_BUILD_ROOT
 %{_includedir}/h2o
 
 %changelog
+* Mon May  9 2016 Tatsushi Demachi <tdemachi@gmail.com> - 1.7.2-1
+- Update to 1.7.2
+
 * Mon Mar 14 2016 Tatsushi Demachi <tdemachi@gmail.com> - 1.7.1-1
 - Update to 1.7.1
 - Add pkgconfig dependency to devel sub package

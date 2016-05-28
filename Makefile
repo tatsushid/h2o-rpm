@@ -5,14 +5,16 @@ centos6: IMAGE_NAME := $(IMAGE_NAME)-ce6
 centos7: IMAGE_NAME := $(IMAGE_NAME)-ce7
 fedora: IMAGE_NAME := $(IMAGE_NAME)-fc23
 opensuse13: IMAGE_NAME := $(IMAGE_NAME)-suse13.2
+opensuse-leap: IMAGE_NAME := $(IMAGE_NAME)-suse-leap
 
-.PHONY: all clean centos6 centos7 fedora opensuse13
+.PHONY: all clean centos6 centos7 fedora opensuse13 opensuse-leap
 
-all: centos6 centos7 fedora opensuse13
+all: centos6 centos7 fedora opensuse13 opensuse-leap
 centos6: centos6.build
 centos7: centos7.build
 fedora: fedora.build
 opensuse13: opensuse13.build
+opensuse-leap: opensuse-leap.build
 
 rpmbuild/SOURCES/$(SOURCE_ARCHIVE):
 	curl -SL https://github.com/h2o/h2o/archive/$(SOURCE_ARCHIVE) -o rpmbuild/SOURCES/$(SOURCE_ARCHIVE)
@@ -38,3 +40,4 @@ clean:
 	docker images | grep -q $(IMAGE_NAME)-ce7 && docker rmi $(IMAGE_NAME)-ce7 || true
 	docker images | grep -q $(IMAGE_NAME)-fc23 && docker rmi $(IMAGE_NAME)-fc23 || true
 	docker images | grep -q $(IMAGE_NAME)-suse13.2 && docker rmi $(IMAGE_NAME)-suse13.2 || true
+	docker images | grep -q $(IMAGE_NAME)-suse-leap && docker rmi $(IMAGE_NAME)-suse-leap || true

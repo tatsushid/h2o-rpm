@@ -26,6 +26,7 @@ Now this understands
 - centos7
 - fedora
 - opensuse13
+- opensuse-leap
 
 build options.
 

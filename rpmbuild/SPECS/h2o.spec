@@ -34,9 +34,9 @@ Group: System Environment/Daemons
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root
 BuildRequires: cmake >= 2.8, gcc-c++, openssl-devel, pkgconfig
 %if 0%{?rhel} == 6
-BuildRequires: ruby193, bison
+BuildRequires: ruby193-ruby-devel, bison
 %else
-BuildRequires: ruby >= 1.9, bison
+BuildRequires: ruby-devel >= 1.9, bison
 %endif
 Requires: openssl, perl
 %if %{with_systemd}
@@ -131,6 +131,11 @@ install -m 644 -p $RPM_SOURCE_DIR/h2o.service \
 	$RPM_BUILD_ROOT%{_unitdir}/h2o.service
 
 mkdir -p $RPM_BUILD_ROOT/run/h2o
+
+# Install tmpfiles.d configuration
+mkdir -p $RPM_BUILD_ROOT%{_prefix}/lib/tmpfiles.d
+install -m 644 -p $RPM_SOURCE_DIR/h2o.tmpfiles \
+	$RPM_BUILD_ROOT%{_prefix}/lib/tmpfiles.d/h2o.conf
 %else
 # install SYSV init stuff
 mkdir -p $RPM_BUILD_ROOT%{_sysconfdir}/rc.d/init.d
@@ -240,6 +245,10 @@ rm -rf $RPM_BUILD_ROOT
 %{_unitdir}/h2o.service
 %else
 %{_sysconfdir}/rc.d/init.d/h2o
+%endif
+
+%if %{with_systemd}
+%{_prefix}/lib/tmpfiles.d/h2o.conf
 %endif
 
 %{_bindir}/h2o

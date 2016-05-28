@@ -4,15 +4,15 @@ IMAGE_NAME := h2o-package
 centos6: IMAGE_NAME := $(IMAGE_NAME)-ce6
 centos7: IMAGE_NAME := $(IMAGE_NAME)-ce7
 fedora: IMAGE_NAME := $(IMAGE_NAME)-fc23
-opensuse: IMAGE_NAME := $(IMAGE_NAME)-suse13.2
+opensuse13: IMAGE_NAME := $(IMAGE_NAME)-suse13.2
 
-.PHONY: all clean centos6 centos7 fedora opensuse
+.PHONY: all clean centos6 centos7 fedora opensuse13
 
-all: centos6 centos7 fedora opensuse
+all: centos6 centos7 fedora opensuse13
 centos6: centos6.build
 centos7: centos7.build
 fedora: fedora.build
-opensuse: opensuse.build
+opensuse13: opensuse13.build
 
 rpmbuild/SOURCES/$(SOURCE_ARCHIVE):
 	curl -SL https://github.com/h2o/h2o/archive/$(SOURCE_ARCHIVE) -o rpmbuild/SOURCES/$(SOURCE_ARCHIVE)

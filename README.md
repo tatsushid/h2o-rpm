@@ -25,7 +25,7 @@ Now this understands
 - centos6
 - centos7
 - fedora
-- opensuse
+- opensuse13
 
 build options.
 

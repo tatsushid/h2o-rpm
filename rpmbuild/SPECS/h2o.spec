@@ -20,7 +20,7 @@
 
 Summary: H2O - The optimized HTTP/1, HTTP/2 server
 Name: h2o
-Version: 1.7.2
+Version: 1.7.3
 Release: 1%{?dist}
 URL: https://h2o.examp1e.net/
 Source0: https://github.com/h2o/h2o/archive/v%{version}.tar.gz
@@ -284,6 +284,12 @@ rm -rf $RPM_BUILD_ROOT
 %{_includedir}/h2o
 
 %changelog
+* Sat May 28 2016 Tatsushi Demachi <tdemachi@gmail.com> - 1.7.3-1
+- Update to 1.7.3
+- Add tmpfiles.d configuration to fix the issue that PID file's parent
+  directory is removed after restarting system
+- Change 'ruby' build requires to 'ruby-devel'
+
 * Mon May  9 2016 Tatsushi Demachi <tdemachi@gmail.com> - 1.7.2-1
 - Update to 1.7.2
 

@@ -1,7 +1,7 @@
 diff -ur a/CMakeLists.txt b/CMakeLists.txt
---- a/CMakeLists.txt	2016-06-04 08:29:22.638798985 +0000
-+++ b/CMakeLists.txt	2016-06-04 09:10:36.287562323 +0000
-@@ -302,7 +302,7 @@
+--- a/CMakeLists.txt
++++ b/CMakeLists.txt
+@@ -333,7 +333,7 @@ SET_TARGET_PROPERTIES(libh2o-evloop PROPERTIES
  IF (OPENSSL_FOUND)
      TARGET_INCLUDE_DIRECTORIES(libh2o PUBLIC ${OPENSSL_INCLUDE_DIR})
      TARGET_INCLUDE_DIRECTORIES(libh2o-evloop PUBLIC ${OPENSSL_INCLUDE_DIR})

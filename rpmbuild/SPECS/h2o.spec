@@ -20,8 +20,8 @@
 
 Summary: H2O - The optimized HTTP/1, HTTP/2 server
 Name: h2o
-Version: 1.7.3
-Release: 2%{?dist}
+Version: 2.0.0
+Release: 1%{?dist}
 URL: https://h2o.examp1e.net/
 Source0: https://github.com/h2o/h2o/archive/v%{version}.tar.gz
 Source1: index.html
@@ -29,7 +29,10 @@ Source2: h2o.logrotate
 Source3: h2o.init
 Source4: h2o.service
 Source5: h2o.conf
-Patch0: h2o-1.7.3-libh2o-libuv-deps.patch
+Patch0: h2o-2.0.0-libh2o-libuv-deps.patch
+%if 0%{?fedora} >= 22 && 0%{?fedora} <= 23
+Patch1: h2o-2.0.0-avoid-old-libuv-abi-issue.patch
+%endif
 License: MIT
 Group: System Environment/Daemons
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root
@@ -92,6 +95,9 @@ build your own software using H2O.
 %setup -q
 
 %patch0 -p1 -b .libh2o-libuv-deps
+%if 0%{?fedora} >= 22 && 0%{?fedora} <= 23
+%patch1 -p1 -b .avoid-old-libuv-abi-issue
+%endif
 
 %build
 cmake -DWITH_BUNDLED_SSL=on -DWITH_MRUBY=on -DCMAKE_INSTALL_PREFIX=%{_prefix} -DBUILD_SHARED_LIBS=on .
@@ -278,6 +284,9 @@ rm -rf $RPM_BUILD_ROOT
 %{_datadir}/h2o/mruby
 %{_datadir}/doc
 
+%{_datadir}/h2o/ca-bundle.crt
+%{_datadir}/h2o/status
+
 %if 0%{?suse_version} == 0
 %dir %{docroot}
 %dir %{docroot}/html
@@ -306,6 +315,10 @@ rm -rf $RPM_BUILD_ROOT
 %{_includedir}/h2o
 
 %changelog
+* Sat Jun  4 2016 Tatsushi Demachi <tdemachi@gmail.com> - 2.0.0-1
+- Update to 2.0.0
+- Add patch to avoid c++ header issue caused by libuv 1.4.2 or earlier
+
 * Sat Jun  4 2016 Tatsushi Demachi <tdemachi@gmail.com> - 1.7.3-2
 - Rename and split h2o-devel package in libh2o, libh2o-evloop and libh2o-devel
 - Stop providing static libraries.

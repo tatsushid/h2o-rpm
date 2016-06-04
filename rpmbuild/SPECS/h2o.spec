@@ -21,7 +21,7 @@
 Summary: H2O - The optimized HTTP/1, HTTP/2 server
 Name: h2o
 Version: 1.7.3
-Release: 1%{?dist}
+Release: 2%{?dist}
 URL: https://h2o.examp1e.net/
 Source0: https://github.com/h2o/h2o/archive/v%{version}.tar.gz
 Source1: index.html
@@ -306,6 +306,12 @@ rm -rf $RPM_BUILD_ROOT
 %{_includedir}/h2o
 
 %changelog
+* Sat Jun  4 2016 Tatsushi Demachi <tdemachi@gmail.com> - 1.7.3-2
+- Rename and split h2o-devel package in libh2o, libh2o-evloop and libh2o-devel
+- Stop providing static libraries.
+- Fix broken library links
+- Fix wrong pkg-config's library paths in x86_64 environment
+
 * Sat May 28 2016 Tatsushi Demachi <tdemachi@gmail.com> - 1.7.3-1
 - Update to 1.7.3
 - Add tmpfiles.d configuration to fix the issue that PID file's parent

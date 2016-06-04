@@ -337,7 +337,7 @@ rm -rf $RPM_BUILD_ROOT
 * Sat Dec 19 2015 Tatsushi Demachi <tdemachi@gmail.com> - 1.6.1-1
 - Update to 1.6.1
 
-* Thu Dec  5 2015 Tatsushi Demachi <tdemachi@gmail.com> - 1.6.0-1
+* Sat Dec  5 2015 Tatsushi Demachi <tdemachi@gmail.com> - 1.6.0-1
 - Update to 1.6.0
 - Remove patch by upstream fix
 
@@ -354,7 +354,7 @@ rm -rf $RPM_BUILD_ROOT
 * Tue Oct 20 2015 Tatsushi Demachi <tdemachi@gmail.com> - 1.5.2-1
 - Update to 1.5.2
 
-* Wed Oct  9 2015 Tatsushi Demachi <tdemachi@gmail.com> - 1.5.0-2
+* Fri Oct  9 2015 Tatsushi Demachi <tdemachi@gmail.com> - 1.5.0-2
 - Add patch to fix CMake version issue for CentOS 7 build
 
 * Thu Oct  8 2015 Donald Stufft <donald@stufft.io> - 1.5.0-1

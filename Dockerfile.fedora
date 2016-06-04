@@ -1,7 +1,7 @@
 FROM fedora:23
 ENV HOME /
 RUN dnf update -y
-RUN dnf install -y rpm-build redhat-rpm-config rpmdevtools cmake gcc-c++ tar make openssl-devel ruby ruby-devel bison
+RUN dnf install -y rpm-build redhat-rpm-config rpmdevtools cmake gcc-c++ tar make openssl-devel ruby ruby-devel bison libuv-devel
 RUN rpmdev-setuptree
 RUN echo '%dist   .fc23' >> /.rpmmacros
 ADD ./rpmbuild/ /rpmbuild/

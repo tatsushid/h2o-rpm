@@ -7,6 +7,9 @@ fedora: IMAGE_NAME := $(IMAGE_NAME)-fc23
 opensuse13: IMAGE_NAME := $(IMAGE_NAME)-suse13.2
 opensuse-leap: IMAGE_NAME := $(IMAGE_NAME)-suse-leap
 
+LIBUV_DOWNLOAD_NAME := v1.9.1.tar.gz
+LIBUV_ARCHIVE := libuv-$(LIBUV_DOWNLOAD_NAME)
+
 .PHONY: all clean centos6 centos7 fedora opensuse13 opensuse-leap
 
 all: centos6 centos7 fedora opensuse13 opensuse-leap
@@ -19,11 +22,15 @@ opensuse-leap: opensuse-leap.build
 rpmbuild/SOURCES/$(SOURCE_ARCHIVE):
 	curl -SL https://github.com/h2o/h2o/archive/$(SOURCE_ARCHIVE) -o rpmbuild/SOURCES/$(SOURCE_ARCHIVE)
 
-%.build: rpmbuild/SPECS/h2o.spec rpmbuild/SOURCES/$(SOURCE_ARCHIVE)
+deps/$(LIBUV_ARCHIVE):
+	[ -d deps ] || mkdir deps
+	curl -SL https://github.com/libuv/libuv/archive/$(LIBUV_DOWNLOAD_NAME) -o deps/$(LIBUV_ARCHIVE)
+
+%.build: deps/$(LIBUV_ARCHIVE) rpmbuild/SPECS/h2o.spec rpmbuild/SOURCES/$(SOURCE_ARCHIVE)
 	[ -d $@.bak ] && rm -rf $@.bak || :
 	[ -d $@ ] && mv $@ $@.bak || :
 	cp Dockerfile.$* Dockerfile
-	tar -czf - Dockerfile rpmbuild | docker build -t $(IMAGE_NAME) -
+	tar -czf - Dockerfile rpmbuild deps | docker build -t $(IMAGE_NAME) -
 	docker run --name $(IMAGE_NAME)-tmp $(IMAGE_NAME)
 	mkdir -p tmp
 	docker wait $(IMAGE_NAME)-tmp

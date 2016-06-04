@@ -21,7 +21,7 @@
 Summary: H2O - The optimized HTTP/1, HTTP/2 server
 Name: h2o
 Version: 1.7.3
-Release: 1%{?dist}
+Release: 2%{?dist}
 URL: https://h2o.examp1e.net/
 Source0: https://github.com/h2o/h2o/archive/v%{version}.tar.gz
 Source1: index.html
@@ -29,6 +29,7 @@ Source2: h2o.logrotate
 Source3: h2o.init
 Source4: h2o.service
 Source5: h2o.conf
+Patch0: h2o-1.7.3-libh2o-libuv-deps.patch
 License: MIT
 Group: System Environment/Daemons
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root
@@ -55,27 +56,44 @@ Requires(post): chkconfig
 %endif
 
 %description
-H2O is a very fast HTTP server written in C. It can also be used
-as a library.
+H2O is a very fast HTTP server written in C
 
-%package devel
+%package -n libh2o
+Group: Development/Libraries
+Summary: H2O Library compiled with libuv
+Requires: openssl
+
+%description -n libh2o
+libh2o package provides H2O library compiled with libuv which allows you to
+link your own software to H2O.
+
+%package -n libh2o-evloop
+Group: Development/Libraries
+Summary: H2O Library compiled with its own event loop
+Requires: openssl
+
+%description -n libh2o-evloop
+libh2o-evloop package provides H2O library compiled with its own event loop
+which allows you to link your own software to H2O.
+
+%package -n libh2o-devel
 Group: Development/Libraries
 Summary: Development interfaces for H2O
 Requires: openssl-devel, pkgconfig
-Requires: h2o = %{version}-%{release}
+Requires: libh2o = %{version}-%{release}
+Requires: libh2o-evloop = %{version}-%{release}
+Obsoletes: h2o-devel
 
-%description devel
-The h2o-devel package provides H2O library and its header files
-which allow you to build your own software using H2O.
+%description -n libh2o-devel
+libh2o-devel package provides H2O header files and helpers which allow you to
+build your own software using H2O.
 
 %prep
 %setup -q
 
-%build
-cmake -DWITH_BUNDLED_SSL=on -DWITH_MRUBY=on -DCMAKE_INSTALL_PREFIX=%{_prefix} .
-make %{?_smp_mflags}
+%patch0 -p1 -b .libh2o-libuv-deps
 
-# for building shared library
+%build
 cmake -DWITH_BUNDLED_SSL=on -DWITH_MRUBY=on -DCMAKE_INSTALL_PREFIX=%{_prefix} -DBUILD_SHARED_LIBS=on .
 make %{?_smp_mflags}
 
@@ -92,23 +110,13 @@ rm -rf $RPM_BUILD_ROOT
 
 make DESTDIR=$RPM_BUILD_ROOT install
 
-mkdir -p $RPM_BUILD_ROOT/%{_libdir}
-install -m 644 -p libh2o-evloop.a \
-        $RPM_BUILD_ROOT%{_libdir}/libh2o-evloop.a
-
 %ifarch x86_64
-mv $RPM_BUILD_ROOT%{_prefix}/lib/libh2o-evloop.so \
-        $RPM_BUILD_ROOT%{_libdir}/libh2o-evloop.so
+mv $RPM_BUILD_ROOT%{_prefix}/lib \
+        $RPM_BUILD_ROOT%{_libdir}
 
-rm -rf $RPM_BUILD_ROOT%{_prefix}/lib
+sed -i -e 's,^\(libdir=.*/lib\),\164,' $RPM_BUILD_ROOT%{_libdir}/pkgconfig/libh2o.pc
+sed -i -e 's,^\(libdir=.*/lib\),\164,' $RPM_BUILD_ROOT%{_libdir}/pkgconfig/libh2o-evloop.pc
 %endif
-
-mkdir -p $RPM_BUILD_ROOT/%{_libdir}/pkgconfig
-install -m 644 -p libh2o.pc \
-        $RPM_BUILD_ROOT%{_libdir}/pkgconfig/libh2o.pc
-
-install -m 644 -p libh2o-evloop.pc \
-        $RPM_BUILD_ROOT%{_libdir}/pkgconfig/libh2o-evloop.pc
 
 mkdir -p $RPM_BUILD_ROOT%{_sysconfdir}/h2o
 install -m 644 -p $RPM_SOURCE_DIR/h2o.conf \
@@ -231,6 +239,14 @@ fi
 %endif
 %endif
 
+%post -n libh2o -p /sbin/ldconfig
+
+%postun -n libh2o -p /sbin/ldconfig
+
+%post -n libh2o-evloop -p /sbin/ldconfig
+
+%postun -n libh2o-evloop -p /sbin/ldconfig
+
 %clean
 rm -rf $RPM_BUILD_ROOT
 
@@ -275,8 +291,14 @@ rm -rf $RPM_BUILD_ROOT
 %endif
 %attr(0700,root,root) %dir %{_localstatedir}/log/h2o
 
-%files devel
-%{_libdir}/libh2o-evloop.a
+%files -n libh2o
+%{_libdir}/libh2o.so.*
+
+%files -n libh2o-evloop
+%{_libdir}/libh2o-evloop.so.*
+
+%files -n libh2o-devel
+%{_libdir}/libh2o.so
 %{_libdir}/libh2o-evloop.so
 %{_libdir}/pkgconfig/libh2o.pc
 %{_libdir}/pkgconfig/libh2o-evloop.pc
@@ -284,6 +306,12 @@ rm -rf $RPM_BUILD_ROOT
 %{_includedir}/h2o
 
 %changelog
+* Sat Jun  4 2016 Tatsushi Demachi <tdemachi@gmail.com> - 1.7.3-2
+- Rename and split h2o-devel package in libh2o, libh2o-evloop and libh2o-devel
+- Stop providing static libraries.
+- Fix broken library links
+- Fix wrong pkg-config's library paths in x86_64 environment
+
 * Sat May 28 2016 Tatsushi Demachi <tdemachi@gmail.com> - 1.7.3-1
 - Update to 1.7.3
 - Add tmpfiles.d configuration to fix the issue that PID file's parent

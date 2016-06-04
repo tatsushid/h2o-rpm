@@ -1,8 +1,18 @@
 FROM opensuse:13.2
 ENV HOME /
 RUN zypper -n update
-RUN zypper -n install -y rpm-build cmake gcc-c++ tar make openssl-devel ruby ruby-devel bison
+RUN zypper -n install -y rpm-build cmake gcc-c++ tar make openssl-devel ruby ruby-devel bison automake libtool
 RUN zypper --no-gpg-checks -n -p http://download.opensuse.org/repositories/devel:/tools/openSUSE_13.2/ install rpmdevtools
+ADD ./deps /deps
+RUN cd /deps \
+    && LIBUV_VERSION="$(ls libuv-v*.tar.gz | sed -e 's/libuv-v\(.*\)\.tar\.gz/\1/' | sort -r | head -n1)" \
+    && tar xzf "libuv-v${LIBUV_VERSION}.tar.gz" \
+    && cd "libuv-${LIBUV_VERSION}" \
+    && sh autogen.sh \
+    && ./configure --prefix=/usr --libdir="$([ $(getconf LONG_BIT) -eq 64 ] && echo -n /usr/lib64 || echo -n /usr/lib)" \
+    && make \
+    && make check \
+    && make install
 RUN rpmdev-setuptree
 ADD ./rpmbuild/ /rpmbuild/
 RUN chown -R root:root /rpmbuild

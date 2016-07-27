@@ -21,7 +21,7 @@
 Summary: H2O - The optimized HTTP/1, HTTP/2 server
 Name: h2o
 Version: 2.0.1
-Release: 1%{?dist}
+Release: 2%{?dist}
 URL: https://h2o.examp1e.net/
 Source0: https://github.com/h2o/h2o/archive/v%{version}.tar.gz
 Source1: index.html
@@ -60,7 +60,6 @@ H2O is a very fast HTTP server written in C
 %package -n libh2o
 Group: Development/Libraries
 Summary: H2O Library compiled with libuv
-Requires: openssl
 
 %description -n libh2o
 libh2o package provides H2O library compiled with libuv which allows you to
@@ -69,7 +68,6 @@ link your own software to H2O.
 %package -n libh2o-evloop
 Group: Development/Libraries
 Summary: H2O Library compiled with its own event loop
-Requires: openssl
 
 %description -n libh2o-evloop
 libh2o-evloop package provides H2O library compiled with its own event loop
@@ -306,6 +304,9 @@ rm -rf $RPM_BUILD_ROOT
 %{_includedir}/h2o
 
 %changelog
+* Wed Jul 27 2016 Tatsushi Demachi <tdemachi@gmail.com> - 2.0.1-2
+- Remove openssl package dependency from libh2o and libh2o-evloop packages
+
 * Sat Jun 25 2016 Tatsushi Demachi <tdemachi@gmail.com> - 2.0.1-1
 - Update to 2.0.1
 - Remove patches by upstream fix

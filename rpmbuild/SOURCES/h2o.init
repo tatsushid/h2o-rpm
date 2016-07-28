@@ -23,7 +23,7 @@ if [ -f /etc/sysconfig/h2o ]; then
 fi
 
 # Path to the server binary, and short-form for messages.
-h2o=/usr/bin/h2o
+h2o=/usr/sbin/h2o
 prog=h2o
 configfile=/etc/h2o/h2o.conf
 lockfile=${LOCKFILE-/var/lock/subsys/h2o}

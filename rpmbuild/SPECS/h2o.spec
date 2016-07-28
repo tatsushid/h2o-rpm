@@ -105,6 +105,9 @@ rm -rf $RPM_BUILD_ROOT
 
 make DESTDIR=$RPM_BUILD_ROOT install
 
+mv $RPM_BUILD_ROOT%{_prefix}/bin \
+        $RPM_BUILD_ROOT%{_sbindir}
+
 %ifarch x86_64
 mv $RPM_BUILD_ROOT%{_prefix}/lib \
         $RPM_BUILD_ROOT%{_libdir}
@@ -262,7 +265,7 @@ rm -rf $RPM_BUILD_ROOT
 %{_prefix}/lib/tmpfiles.d/h2o.conf
 %endif
 
-%{_bindir}/h2o
+%{_sbindir}/h2o
 %{_datadir}/h2o/annotate-backtrace-symbols
 %{_datadir}/h2o/fastcgi-cgi
 %{_datadir}/h2o/fetch-ocsp-response
@@ -306,6 +309,7 @@ rm -rf $RPM_BUILD_ROOT
 %changelog
 * Wed Jul 27 2016 Tatsushi Demachi <tdemachi@gmail.com> - 2.0.1-2
 - Remove openssl package dependency from libh2o and libh2o-evloop packages
+- Put h2o binary in /usr/sbin directory instead of /usr/bin directory
 
 * Sat Jun 25 2016 Tatsushi Demachi <tdemachi@gmail.com> - 2.0.1-1
 - Update to 2.0.1

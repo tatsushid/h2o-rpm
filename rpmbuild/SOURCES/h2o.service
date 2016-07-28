@@ -4,7 +4,7 @@ After=network.target remote-fs.target nss-lookup.target
 
 [Service]
 Type=simple
-ExecStart=/usr/bin/h2o -m master -c /etc/h2o/h2o.conf
+ExecStart=/usr/sbin/h2o -m master -c /etc/h2o/h2o.conf
 ExecReload=/bin/kill -HUP ${MAINPID}
 ExecStop=/bin/kill -TERM ${MAINPID}
 PrivateTmp=true

@@ -1,4 +1,11 @@
-/var/log/h2o/*log {
+/var/log/h2o/error.log {
+    missingok
+    notifempty
+    delaycompress
+    copytruncate
+}
+
+/var/log/h2o/access.log {
     missingok
     notifempty
     sharedscripts

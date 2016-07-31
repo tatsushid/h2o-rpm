@@ -5,6 +5,8 @@ This provides [H2O](https://h2o.examp1e.net/) RPM spec file and required files
 e.g. SysVinit, systemd service etc. to build RPM for Fedora, RHEL/CentOS 6/7
 and OpenSUSE.
 
+If you search Debian package, please see [h2o-deb](https://github.com/tatsushid/h2o-deb)
+
 ## How to build RPM
 
 If you have a docker environment, you can build RPMs by just running

@@ -41,8 +41,16 @@ deps/$(LIBUV_ARCHIVE):
 	rm -rf tmp Dockerfile
 	docker images | grep -q $(IMAGE_NAME) && docker rmi $(IMAGE_NAME) || true
 
+bintray:
+	./scripts/build_bintray_json.bash \
+		h2o \
+		h2o-debuginfo \
+		libh2o \
+		libh2o-evloop \
+		libh2o-devel
+
 clean:
-	rm -rf *.build.bak *.build tmp Dockerfile
+	rm -rf *.build.bak *.build bintray tmp Dockerfile
 	docker images | grep -q $(IMAGE_NAME)-ce6 && docker rmi $(IMAGE_NAME)-ce6 || true
 	docker images | grep -q $(IMAGE_NAME)-ce7 && docker rmi $(IMAGE_NAME)-ce7 || true
 	docker images | grep -q $(IMAGE_NAME)-fc23 && docker rmi $(IMAGE_NAME)-fc23 || true

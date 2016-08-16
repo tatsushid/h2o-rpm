@@ -8,3 +8,33 @@ language: c
 script:
   - make
   - ls
+
+before_deploy:
+  - make bintray
+
+deploy:
+  - provider: bintray
+    user: tatsushid
+    key: '$BINTRAY_API_KEY'
+    file: ./bintray/bintray-h2o.json
+    skip_cleanup: true
+  - provider: bintray
+    user: tatsushid
+    key: '$BINTRAY_API_KEY'
+    file: ./bintray/bintray-h2o-debuginfo.json
+    skip_cleanup: true
+  - provider: bintray
+    user: tatsushid
+    key: '$BINTRAY_API_KEY'
+    file: ./bintray/bintray-libh2o.json
+    skip_cleanup: true
+  - provider: bintray
+    user: tatsushid
+    key: '$BINTRAY_API_KEY'
+    file: ./bintray/bintray-libh2o-evloop.json
+    skip_cleanup: true
+  - provider: bintray
+    user: tatsushid
+    key: '$BINTRAY_API_KEY'
+    file: ./bintray/bintray-libh2o-devel.json
+    skip_cleanup: true

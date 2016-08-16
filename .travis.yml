@@ -1,0 +1,10 @@
+sudo: required
+
+services:
+  - docker
+
+language: c
+
+script:
+  - make
+  - ls

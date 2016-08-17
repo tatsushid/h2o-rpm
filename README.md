@@ -1,6 +1,8 @@
 H2O Unofficial RPM package builder
 ==================================
 
+[![Build Status](https://travis-ci.org/tatsushid/h2o-rpm.svg?branch=master)](https://travis-ci.org/tatsushid/h2o-rpm)
+
 This provides [H2O](https://h2o.examp1e.net/) RPM spec file and required files
 e.g. SysVinit, systemd service etc. to build RPM for Fedora, RHEL/CentOS 6/7
 and OpenSUSE.

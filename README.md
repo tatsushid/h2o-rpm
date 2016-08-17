@@ -9,6 +9,37 @@ and OpenSUSE.
 
 If you search Debian package, please see [h2o-deb](https://github.com/tatsushid/h2o-deb)
 
+## How to use prebuilt RPM
+
+This has [Bintray RPM repository](https://bintray.com/tatsushid/h2o-rpm) so if
+you'd like to just install such a prebuilt package, please put following into a
+`bintray-tatsushid-h2o-rpm.repo` in `/etc/yum.repos.d`
+
+```ini
+#bintray-tatsushid-h2o-rpm - packages by tatsushid from Bintray
+[bintray-tatsushid-h2o-rpm]
+name=bintray-tatsushid-h2o-rpm
+#If your system is CentOS
+baseurl=https://dl.bintray.com/tatsushid/h2o-rpm/centos/$releasever/$basearch/
+#If your system is Fedora
+#baseurl=https://dl.bintray.com/tatsushid/h2o-rpm/fedora/$releasever/$basearch/
+gpgcheck=0
+repo_gpgcheck=0
+enabled=1
+```
+
+Once the file is correctly saved, you can install packages in the repository by
+
+```bash
+yum install h2o
+```
+
+or if you use Fedora
+
+```bash
+dnf install h2o
+```
+
 ## How to build RPM
 
 If you have a docker environment, you can build RPMs by just running

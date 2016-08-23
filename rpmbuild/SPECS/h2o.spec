@@ -20,8 +20,8 @@
 
 Summary: H2O - The optimized HTTP/1, HTTP/2 server
 Name: h2o
-Version: 2.0.1
-Release: 2%{?dist}
+Version: 2.0.2
+Release: 1%{?dist}
 URL: https://h2o.examp1e.net/
 Source0: https://github.com/h2o/h2o/archive/v%{version}.tar.gz
 Source1: index.html
@@ -307,6 +307,9 @@ rm -rf $RPM_BUILD_ROOT
 %{_includedir}/h2o
 
 %changelog
+* Tue Aug 23 2016 Tatsushi Demachi <tdemachi@gmail.com> - 2.0.2-1
+- Update to 2.0.2
+
 * Wed Jul 27 2016 Tatsushi Demachi <tdemachi@gmail.com> - 2.0.1-2
 - Remove openssl package dependency from libh2o and libh2o-evloop packages
 - Put h2o binary in /usr/sbin directory instead of /usr/bin directory

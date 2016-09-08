@@ -3,7 +3,7 @@ TARGZ_FILE := h2o.tar.gz
 IMAGE_NAME := h2o-package
 centos6: IMAGE_NAME := $(IMAGE_NAME)-ce6
 centos7: IMAGE_NAME := $(IMAGE_NAME)-ce7
-fedora: IMAGE_NAME := $(IMAGE_NAME)-fc23
+fedora: IMAGE_NAME := $(IMAGE_NAME)-fc24
 opensuse13: IMAGE_NAME := $(IMAGE_NAME)-suse13.2
 opensuse-leap: IMAGE_NAME := $(IMAGE_NAME)-suse-leap
 
@@ -53,6 +53,6 @@ clean:
 	rm -rf *.build.bak *.build bintray tmp Dockerfile
 	docker images | grep -q $(IMAGE_NAME)-ce6 && docker rmi $(IMAGE_NAME)-ce6 || true
 	docker images | grep -q $(IMAGE_NAME)-ce7 && docker rmi $(IMAGE_NAME)-ce7 || true
-	docker images | grep -q $(IMAGE_NAME)-fc23 && docker rmi $(IMAGE_NAME)-fc23 || true
+	docker images | grep -q $(IMAGE_NAME)-fc24 && docker rmi $(IMAGE_NAME)-fc24 || true
 	docker images | grep -q $(IMAGE_NAME)-suse13.2 && docker rmi $(IMAGE_NAME)-suse13.2 || true
 	docker images | grep -q $(IMAGE_NAME)-suse-leap && docker rmi $(IMAGE_NAME)-suse-leap || true

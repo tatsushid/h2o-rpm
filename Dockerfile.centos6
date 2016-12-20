@@ -1,7 +1,7 @@
 FROM centos:6
 ENV HOME /
 RUN yum update -y
-RUN yum install -y rpm-build redhat-rpm-config rpmdevtools cmake gcc-c++ tar openssl-devel bison automake libtool centos-release-scl
+RUN yum install -y rpm-build redhat-rpm-config rpmdevtools cmake gcc-c++ tar openssl-devel bison automake libtool git centos-release-scl
 RUN yum install -y ruby193 ruby193-ruby-devel
 ADD ./deps /deps
 RUN cd /deps \

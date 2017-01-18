@@ -20,7 +20,7 @@
 
 Summary: H2O - The optimized HTTP/1, HTTP/2 server
 Name: h2o
-Version: 2.0.5
+Version: 2.1.0
 Release: 1%{?dist}
 URL: https://h2o.examp1e.net/
 Source0: https://github.com/h2o/h2o/archive/v%{version}.tar.gz
@@ -107,14 +107,6 @@ make DESTDIR=$RPM_BUILD_ROOT install
 
 mv $RPM_BUILD_ROOT%{_prefix}/bin \
         $RPM_BUILD_ROOT%{_sbindir}
-
-%ifarch x86_64
-mv $RPM_BUILD_ROOT%{_prefix}/lib \
-        $RPM_BUILD_ROOT%{_libdir}
-
-sed -i -e 's,^\(libdir=.*/lib\),\164,' $RPM_BUILD_ROOT%{_libdir}/pkgconfig/libh2o.pc
-sed -i -e 's,^\(libdir=.*/lib\),\164,' $RPM_BUILD_ROOT%{_libdir}/pkgconfig/libh2o-evloop.pc
-%endif
 
 mkdir -p $RPM_BUILD_ROOT%{_sysconfdir}/h2o
 install -m 644 -p $RPM_SOURCE_DIR/h2o.conf \
@@ -307,6 +299,9 @@ rm -rf $RPM_BUILD_ROOT
 %{_includedir}/h2o
 
 %changelog
+* Wed Jan 18 2017 Tatsushi Demachi <tdemachi@gmail.com> - 2.1.0-1
+- Update to 2.1.0
+
 * Wed Dec 21 2016 Tatsushi Demachi <tdemachi@gmail.com> - 2.0.5-1
 - Update to 2.0.5
 

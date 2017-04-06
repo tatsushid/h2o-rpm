@@ -60,7 +60,6 @@ Now this understands
 - centos6
 - centos7
 - fedora
-- opensuse13
 - opensuse-leap
 
 build options.

@@ -21,7 +21,7 @@
 Summary: H2O - The optimized HTTP/1, HTTP/2 server
 Name: h2o
 Version: 2.2.0
-Release: 1%{?dist}
+Release: 2%{?dist}
 URL: https://h2o.examp1e.net/
 Source0: https://github.com/h2o/h2o/archive/v%{version}.tar.gz
 Source1: index.html
@@ -60,6 +60,9 @@ H2O is a very fast HTTP server written in C
 %package -n libh2o
 Group: Development/Libraries
 Summary: H2O Library compiled with libuv
+%if 0%{?fedora} >= 22 || 0%{?rhel} >= 7 || 0%{?sle_version} >= 120100
+BuildRequires: libuv-devel >= 1.0.0
+%endif
 
 %description -n libh2o
 libh2o package provides H2O library compiled with libuv which allows you to
@@ -299,6 +302,9 @@ rm -rf $RPM_BUILD_ROOT
 %{_includedir}/h2o
 
 %changelog
+* Sat Apr 29 2017 Tatsushi Demachi <tdemachi@gmail.com> - 2.2.0-2
+- Add libuv-devel build dependency to libh2o
+
 * Thu Apr  6 2017 Tatsushi Demachi <tdemachi@gmail.com> - 2.2.0-1
 - Update to 2.2.0
 

@@ -1,0 +1,17 @@
+--- a/lib/handler/mruby.c
++++ b/lib/handler/mruby.c
+@@ -152,6 +152,14 @@
+         abort();
+     }
+ 
++    /* adjest stack length of toplevel environment */
++    if (mrb->c->cibase->env) {
++        struct REnv *e = mrb->c->cibase->env;
++        if (MRB_ENV_STACK_LEN(e) < proc->body.irep->nlocals) {
++            MRB_SET_ENV_STACK_LEN(e, proc->body.irep->nlocals);
++        }
++    }
++
+     /* reset configuration context */
+     h2o_mruby_eval_expr(mrb, "H2O::ConfigurationContext.reset");
+     h2o_mruby_assert(mrb);

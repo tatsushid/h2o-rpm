@@ -20,7 +20,7 @@
 
 Summary: H2O - The optimized HTTP/1, HTTP/2 server
 Name: h2o
-Version: 2.2.2
+Version: 2.2.3
 Release: 1%{?dist}
 URL: https://h2o.examp1e.net/
 Source0: https://github.com/h2o/h2o/archive/v%{version}.tar.gz
@@ -29,6 +29,7 @@ Source2: h2o.logrotate
 Source3: h2o.init
 Source4: h2o.service
 Source5: h2o.conf
+Patch1: 02-fix-mruby-test-failure.patch
 License: MIT
 Group: System Environment/Daemons
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root
@@ -90,6 +91,7 @@ build your own software using H2O.
 
 %prep
 %setup -q
+%patch1 -p1 -b .mruby
 
 %build
 cmake -DWITH_BUNDLED_SSL=on -DWITH_MRUBY=on -DCMAKE_INSTALL_PREFIX=%{_prefix} -DBUILD_SHARED_LIBS=on .
@@ -302,6 +304,10 @@ rm -rf $RPM_BUILD_ROOT
 %{_includedir}/h2o
 
 %changelog
+* Thu Oct 19 2017 Tatsushi Demachi <tdemachi@gmail.com> - 2.2.3-1
+- Update to 2.2.3
+- Add patch for fixing mruby behavior on 2.2.3
+
 * Sat Apr 29 2017 Tatsushi Demachi <tdemachi@gmail.com> - 2.2.2-1
 - Update to 2.2.2
 

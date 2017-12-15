@@ -80,7 +80,7 @@ yum install h2o-2.2.4-1.el6.x86_64.rpm
 or if you use Fedora 22 or later
 
 ```bash
-dnf install h2o-2.2.4-1.fc25.x86_64.rpm
+dnf install h2o-2.2.4-1.fc26.x86_64.rpm
 ```
 
 or if you use OpenSUSE

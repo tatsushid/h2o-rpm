@@ -1,0 +1,12 @@
+--- a/deps/picotls/deps/cifra/src/sha512.c
++++ b/deps/picotls/deps/cifra/src/sha512.c
+@@ -112,7 +112,8 @@
+            h = ctx->H[7],
+            Wt;
+ 
+-  for (size_t t = 0; t < 80; t++)
++  size_t t;
++  for (t = 0; t < 80; t++)
+   {
+     if (t < 16)
+     {

@@ -305,7 +305,7 @@ rm -rf $RPM_BUILD_ROOT
 
 %changelog
 * Fri Jun  1 2018 Tatsushi Demachi <tdemachi@gmail.com> - 2.2.5-1
-- Update to 2.2.4
+- Update to 2.2.5
 - Add patch for avoid c99 syntax issue at compilation
 
 * Fri Dec 15 2017 Tatsushi Demachi <tdemachi@gmail.com> - 2.2.4-1

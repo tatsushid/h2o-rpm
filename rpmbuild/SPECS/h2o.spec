@@ -21,7 +21,7 @@
 Summary: H2O - The optimized HTTP/1, HTTP/2 server
 Name: h2o
 Version: 2.2.5
-Release: 1%{?dist}
+Release: 2%{?dist}
 URL: https://h2o.examp1e.net/
 Source0: https://github.com/h2o/h2o/archive/v%{version}.tar.gz
 Source1: index.html
@@ -304,6 +304,9 @@ rm -rf $RPM_BUILD_ROOT
 %{_includedir}/h2o
 
 %changelog
+* Mon Feb 30 2019 Ichinose Shogo <shogo82148@gmail.com> - 2.2.5-2
+- Add amazonlinux2 support
+
 * Fri Jun  1 2018 Tatsushi Demachi <tdemachi@gmail.com> - 2.2.5-1
 - Update to 2.2.5
 - Add patch for avoid c99 syntax issue at compilation

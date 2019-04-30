@@ -304,7 +304,7 @@ rm -rf $RPM_BUILD_ROOT
 %{_includedir}/h2o
 
 %changelog
-* Mon Feb 30 2019 Ichinose Shogo <shogo82148@gmail.com> - 2.2.5-2
+* Tue May  1 2019 Ichinose Shogo <shogo82148@gmail.com> - 2.2.5-2
 - Add amazonlinux2 support
 
 * Fri Jun  1 2018 Tatsushi Demachi <tdemachi@gmail.com> - 2.2.5-1

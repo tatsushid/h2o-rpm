@@ -1,9 +1,9 @@
-FROM fedora:28
+FROM fedora:29
 ENV HOME /
 RUN dnf update -y
-RUN dnf install -y rpm-build redhat-rpm-config rpmdevtools cmake gcc-c++ tar make openssl-devel ruby ruby-devel bison libuv-devel git
+RUN dnf install -y rpm-build redhat-rpm-config rpmdevtools cmake gcc-c++ tar make openssl-devel ruby ruby-devel bison libuv-devel git zlib-devel
 RUN rpmdev-setuptree
-RUN echo '%dist   .fc28' >> /.rpmmacros
+RUN echo '%dist   .fc29' >> /.rpmmacros
 ADD ./rpmbuild/ /rpmbuild/
 RUN chown -R root:root /rpmbuild
 RUN rpmbuild -ba /rpmbuild/SPECS/h2o.spec

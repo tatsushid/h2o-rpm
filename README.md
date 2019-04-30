@@ -1,28 +1,28 @@
 H2O Unofficial RPM package builder
 ==================================
 
-[![Build Status](https://travis-ci.org/tatsushid/h2o-rpm.svg?branch=master)](https://travis-ci.org/tatsushid/h2o-rpm)
+[![Build Status](https://travis-ci.org/shogo82148/h2o-rpm.svg?branch=master)](https://travis-ci.org/shogo82148/h2o-rpm)
 
 This provides [H2O](https://h2o.examp1e.net/) RPM spec file and required files
 e.g. SysVinit, systemd service etc. to build RPM for Fedora, RHEL/CentOS 6/7
 and OpenSUSE.
 
-If you search Debian package, please see [h2o-deb](https://github.com/tatsushid/h2o-deb)
+If you search Debian package, please see [h2o-deb](https://github.com/shogo82148/h2o-deb)
 
 ## How to use prebuilt RPM
 
-This has [Bintray RPM repository](https://bintray.com/tatsushid/h2o-rpm) so if
+This has [Bintray RPM repository](https://bintray.com/shogo82148/h2o-rpm) so if
 you'd like to just install such a prebuilt package, please put following into a
-`bintray-tatsushid-h2o-rpm.repo` in `/etc/yum.repos.d`
+`bintray-shogo82148-h2o-rpm.repo` in `/etc/yum.repos.d`
 
 ```ini
-#bintray-tatsushid-h2o-rpm - packages by tatsushid from Bintray
-[bintray-tatsushid-h2o-rpm]
-name=bintray-tatsushid-h2o-rpm
+#bintray-shogo82148-h2o-rpm - packages by shogo82148 from Bintray
+[bintray-shogo82148-h2o-rpm]
+name=bintray-shogo82148-h2o-rpm
 #If your system is CentOS
-baseurl=https://dl.bintray.com/tatsushid/h2o-rpm/centos/$releasever/$basearch/
+baseurl=https://dl.bintray.com/shogo82148/h2o-rpm/centos/$releasever/$basearch/
 #If your system is Fedora
-#baseurl=https://dl.bintray.com/tatsushid/h2o-rpm/fedora/$releasever/$basearch/
+#baseurl=https://dl.bintray.com/shogo82148/h2o-rpm/fedora/$releasever/$basearch/
 gpgcheck=0
 repo_gpgcheck=0
 enabled=1
@@ -65,7 +65,7 @@ Now this understands
 build options.
 
 To build RPM in your server without docker, please copy files under
-[`rpmbuild`](https://github.com/tatsushid/h2o-rpm/blob/master/rpmbuild) to your
+[`rpmbuild`](https://github.com/shogo82148/h2o-rpm/blob/master/rpmbuild) to your
 build system
 
 ## Installing RPM
@@ -80,7 +80,7 @@ yum install h2o-2.2.5-1.el6.x86_64.rpm
 or if you use Fedora 22 or later
 
 ```bash
-dnf install h2o-2.2.5-1.fc28.x86_64.rpm
+dnf install h2o-2.2.5-1.fc29.x86_64.rpm
 ```
 
 or if you use OpenSUSE
@@ -108,5 +108,5 @@ systemctl start h2o.service
 ## License
 
 This is under MIT License. Please see the
-[LICENSE](https://github.com/tatsushid/h2o-rpm/blob/master/LICENSE) file for
+[LICENSE](https://github.com/shogo82148/h2o-rpm/blob/master/LICENSE) file for
 details.

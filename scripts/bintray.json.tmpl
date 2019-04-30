@@ -2,11 +2,11 @@
     "package": {
         "name": "@PKG_NAME@",
         "repo": "h2o-rpm",
-        "subject": "tatsushid",
+        "subject": "shogo82148",
         "desc": "@PKG_NAME@ RPM package",
-        "website_url": "https://github.com/tatsushid/h2o-rpm",
-        "issue_tracker_url": "https://github.com/tatsushid/h2o-rpm/issues",
-        "vcs_url": "https://github.com/tatsushid/h2o-rpm.git",
+        "website_url": "https://github.com/shogo82148/h2o-rpm",
+        "issue_tracker_url": "https://github.com/shogo82148/h2o-rpm/issues",
+        "vcs_url": "https://github.com/shogo82148/h2o-rpm.git",
         "licenses": ["MIT"]
     },
 
@@ -29,7 +29,12 @@
         },
         {
             "includePattern": "./fedora\.build/RPMS/x86_64/(@PKG_NAME@-@PKG_VERSION@.*\.rpm)",
-            "uploadPattern": "fedora/28/x86_64/$1",
+            "uploadPattern": "fedora/29/x86_64/$1",
+            "matrixParams": { "override": 1 }
+        },
+        {
+            "includePattern": "./amazonlinux2\.build/RPMS/x86_64/(@PKG_NAME@-@PKG_VERSION@.*\.rpm)",
+            "uploadPattern": "amazonlinux2/system-release/x86_64/$1",
             "matrixParams": { "override": 1 }
         }
     ],

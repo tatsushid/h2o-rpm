@@ -3,19 +3,21 @@ TARGZ_FILE := h2o.tar.gz
 IMAGE_NAME := h2o-package
 centos6: IMAGE_NAME := $(IMAGE_NAME)-ce6
 centos7: IMAGE_NAME := $(IMAGE_NAME)-ce7
-fedora: IMAGE_NAME := $(IMAGE_NAME)-fc28
+fedora: IMAGE_NAME := $(IMAGE_NAME)-fc29
 opensuse-leap: IMAGE_NAME := $(IMAGE_NAME)-suse-leap
+amazonlinux2: IMAGE_NAME := $(IMAGE_NAME)-amazonlinux2
 
-LIBUV_DOWNLOAD_NAME := v1.9.1.tar.gz
+LIBUV_DOWNLOAD_NAME := v1.28.0.tar.gz
 LIBUV_ARCHIVE := libuv-$(LIBUV_DOWNLOAD_NAME)
 
 .PHONY: all clean centos6 centos7 fedora opensuse-leap
 
-all: centos6 centos7 fedora opensuse-leap
+all: centos6 centos7 fedora opensuse-leap amazonlinux2
 centos6: centos6.build
 centos7: centos7.build
 fedora: fedora.build
 opensuse-leap: opensuse-leap.build
+amazonlinux2: amazonlinux2.build
 
 rpmbuild/SOURCES/$(SOURCE_ARCHIVE):
 	curl -SL https://github.com/h2o/h2o/archive/$(SOURCE_ARCHIVE) -o rpmbuild/SOURCES/$(SOURCE_ARCHIVE)
@@ -27,8 +29,7 @@ deps/$(LIBUV_ARCHIVE):
 %.build: deps/$(LIBUV_ARCHIVE) rpmbuild/SPECS/h2o.spec rpmbuild/SOURCES/$(SOURCE_ARCHIVE)
 	[ -d $@.bak ] && rm -rf $@.bak || :
 	[ -d $@ ] && mv $@ $@.bak || :
-	cp Dockerfile.$* Dockerfile
-	tar -czf - Dockerfile rpmbuild deps | docker build -t $(IMAGE_NAME) -
+	tar -czf - Dockerfile.$* rpmbuild deps | docker build --file Dockerfile.$* -t $(IMAGE_NAME) -
 	docker run --name $(IMAGE_NAME)-tmp $(IMAGE_NAME)
 	mkdir -p tmp
 	docker wait $(IMAGE_NAME)-tmp
@@ -51,5 +52,5 @@ clean:
 	rm -rf *.build.bak *.build bintray tmp Dockerfile
 	docker images | grep -q $(IMAGE_NAME)-ce6 && docker rmi $(IMAGE_NAME)-ce6 || true
 	docker images | grep -q $(IMAGE_NAME)-ce7 && docker rmi $(IMAGE_NAME)-ce7 || true
-	docker images | grep -q $(IMAGE_NAME)-fc28 && docker rmi $(IMAGE_NAME)-fc28 || true
+	docker images | grep -q $(IMAGE_NAME)-fc29 && docker rmi $(IMAGE_NAME)-fc29 || true
 	docker images | grep -q $(IMAGE_NAME)-suse-leap && docker rmi $(IMAGE_NAME)-suse-leap || true

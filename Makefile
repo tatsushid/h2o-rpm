@@ -7,7 +7,7 @@ fedora: IMAGE_NAME := $(IMAGE_NAME)-fc28
 opensuse-leap: IMAGE_NAME := $(IMAGE_NAME)-suse-leap
 amazonlinux2: IMAGE_NAME := $(IMAGE_NAME)-amazonlinux2
 
-LIBUV_DOWNLOAD_NAME := v1.9.1.tar.gz
+LIBUV_DOWNLOAD_NAME := v1.28.0.tar.gz
 LIBUV_ARCHIVE := libuv-$(LIBUV_DOWNLOAD_NAME)
 
 .PHONY: all clean centos6 centos7 fedora opensuse-leap

@@ -10,6 +10,7 @@ env:
   - TARGET_DISTRIBUTION=centos7
   - TARGET_DISTRIBUTION=fedora
   - TARGET_DISTRIBUTION=opensuse-leap
+  - TARGET_DISTRIBUTION=amazonlinux2
 
 script:
   - make "$TARGET_DISTRIBUTION"

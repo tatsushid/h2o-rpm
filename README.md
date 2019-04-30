@@ -61,6 +61,7 @@ Now this understands
 - centos7
 - fedora
 - opensuse-leap
+- amazonlinux2
 
 build options.
 

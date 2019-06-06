@@ -8,7 +8,8 @@ language: c
 env:
   - TARGET_DISTRIBUTION=centos6
   - TARGET_DISTRIBUTION=centos7
-  - TARGET_DISTRIBUTION=fedora
+  - TARGET_DISTRIBUTION=fedora29
+  - TARGET_DISTRIBUTION=fedora30
   - TARGET_DISTRIBUTION=opensuse-leap
   - TARGET_DISTRIBUTION=amazonlinux2
 

@@ -3,7 +3,7 @@ ENV HOME /
 RUN yum update -y
 RUN yum install -y rpm-build redhat-rpm-config rpmdevtools cmake gcc-c++ tar make openssl-devel ruby ruby-devel bison automake libtool libuv-devel git
 RUN rpmdev-setuptree
-RUN echo '%dist   .el7' >> /.rpmmacros
+RUN echo '%dist   .amzn2' >> /.rpmmacros
 ADD ./rpmbuild/ /rpmbuild/
 RUN chown -R root:root /rpmbuild
 RUN rpmbuild -ba /rpmbuild/SPECS/h2o.spec

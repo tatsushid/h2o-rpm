@@ -4,8 +4,8 @@ H2O Unofficial RPM package builder
 [![Build Status](https://travis-ci.com/shogo82148/h2o-rpm.svg?branch=master)](https://travis-ci.com/shogo82148/h2o-rpm)
 
 This provides [H2O](https://h2o.examp1e.net/) RPM spec file and required files
-e.g. SysVinit, systemd service etc. to build RPM for Fedora, RHEL/CentOS 6/7
-and OpenSUSE.
+e.g. SysVinit, systemd service etc. to build RPM for Fedora, RHEL/CentOS 6/7,
+OpenSUSE and Amazon Linux 2.
 
 If you search Debian package, please see [h2o-deb](https://github.com/shogo82148/h2o-deb)
 
@@ -23,6 +23,8 @@ name=bintray-shogo82148-h2o-rpm
 baseurl=https://dl.bintray.com/shogo82148/h2o-rpm/centos/$releasever/$basearch/
 #If your system is Fedora
 #baseurl=https://dl.bintray.com/shogo82148/h2o-rpm/fedora/$releasever/$basearch/
+#If your system is Amazon Linux 2
+#baseurl=https://dl.bintray.com/shogo82148/h2o-rpm/amazonlinux2/$releasever/$basearch/
 gpgcheck=0
 repo_gpgcheck=0
 enabled=1

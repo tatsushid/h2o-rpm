@@ -15,19 +15,44 @@ This has [Bintray RPM repository](https://bintray.com/shogo82148/h2o-rpm) so if
 you'd like to just install such a prebuilt package, please put following into a
 `bintray-shogo82148-h2o-rpm.repo` in `/etc/yum.repos.d`
 
+CentOS:
+
 ```ini
 #bintray-shogo82148-h2o-rpm - packages by shogo82148 from Bintray
 [bintray-shogo82148-h2o-rpm]
 name=bintray-shogo82148-h2o-rpm
 #If your system is CentOS
 baseurl=https://dl.bintray.com/shogo82148/h2o-rpm/centos/$releasever/$basearch/
-#If your system is Fedora
-#baseurl=https://dl.bintray.com/shogo82148/h2o-rpm/fedora/$releasever/$basearch/
-#If your system is Amazon Linux 2
-#baseurl=https://dl.bintray.com/shogo82148/h2o-rpm/amazonlinux2/$releasever/$basearch/
 gpgcheck=0
-repo_gpgcheck=0
+repo_gpgcheck=1
 enabled=1
+gpgkey=https://bintray.com/api/v1/usrs/shogo82148/keys/gpg/public.key
+```
+
+Fedora:
+
+```ini
+#bintray-shogo82148-h2o-rpm - packages by shogo82148 from Bintray
+[bintray-shogo82148-h2o-rpm]
+name=bintray-shogo82148-h2o-rpm
+baseurl=https://dl.bintray.com/shogo82148/h2o-rpm/fedora/$releasever/$basearch/
+gpgcheck=0
+repo_gpgcheck=1
+enabled=1
+gpgkey=https://bintray.com/api/v1/usrs/shogo82148/keys/gpg/public.key
+```
+
+Amazon Linux 2:
+
+```ini
+#bintray-shogo82148-h2o-rpm - packages by shogo82148 from Bintray
+[bintray-shogo82148-h2o-rpm]
+name=bintray-shogo82148-h2o-rpm
+baseurl=https://dl.bintray.com/shogo82148/h2o-rpm/amazonlinux2/$releasever/$basearch/
+gpgcheck=0
+repo_gpgcheck=1
+enabled=1
+gpgkey=https://bintray.com/api/v1/usrs/shogo82148/keys/gpg/public.key
 ```
 
 Once the file is correctly saved, you can install packages in the repository by

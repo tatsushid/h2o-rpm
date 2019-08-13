@@ -35,7 +35,7 @@ Group: System Environment/Daemons
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root
 BuildRequires: cmake >= 2.8, gcc-c++, openssl-devel, pkgconfig
 %if 0%{?rhel} == 6
-BuildRequires: ruby193-ruby-devel, bison
+BuildRequires: rh-ruby23-scldevel, bison
 %else
 BuildRequires: ruby-devel >= 1.9, bison
 %endif

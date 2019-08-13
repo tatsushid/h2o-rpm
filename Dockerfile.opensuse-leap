@@ -1,4 +1,4 @@
-FROM opensuse:42.3
+FROM opensuse/leap:42.3
 ENV HOME /
 RUN zypper -n update
 RUN zypper -n install -y rpm-build cmake gcc-c++ tar make openssl-devel ruby ruby-devel bison libuv-devel git

@@ -26,7 +26,7 @@ baseurl=https://dl.bintray.com/shogo82148/h2o-rpm/centos/$releasever/$basearch/
 gpgcheck=0
 repo_gpgcheck=1
 enabled=1
-gpgkey=https://bintray.com/api/v1/usrs/shogo82148/keys/gpg/public.key
+gpgkey=https://bintray.com/user/downloadSubjectPublicKey?username=shogo82148
 ```
 
 Fedora:
@@ -39,7 +39,7 @@ baseurl=https://dl.bintray.com/shogo82148/h2o-rpm/fedora/$releasever/$basearch/
 gpgcheck=0
 repo_gpgcheck=1
 enabled=1
-gpgkey=https://bintray.com/api/v1/usrs/shogo82148/keys/gpg/public.key
+gpgkey=https://bintray.com/user/downloadSubjectPublicKey?username=shogo82148
 ```
 
 Amazon Linux 2:
@@ -52,7 +52,7 @@ baseurl=https://dl.bintray.com/shogo82148/h2o-rpm/amazonlinux2/$releasever/$base
 gpgcheck=0
 repo_gpgcheck=1
 enabled=1
-gpgkey=https://bintray.com/api/v1/usrs/shogo82148/keys/gpg/public.key
+gpgkey=https://bintray.com/user/downloadSubjectPublicKey?username=shogo82148
 ```
 
 Once the file is correctly saved, you can install packages in the repository by
@@ -102,19 +102,19 @@ After building, please copy RPM under `*.build` directory to your system and
 run
 
 ```bash
-yum install h2o-2.2.5-1.el6.x86_64.rpm
+yum install h2o-2.2.6-1.el6.x86_64.rpm
 ```
 
 or if you use Fedora 22 or later
 
 ```bash
-dnf install h2o-2.2.5-1.fc29.x86_64.rpm
+dnf install h2o-2.2.6-1.fc29.x86_64.rpm
 ```
 
 or if you use OpenSUSE
 
 ```bash
-zypper install h2o-2.2.5-1.x86_64.rpm
+zypper install h2o-2.2.6-1.x86_64.rpm
 ```
 
 Once the installation finishes successfully, you can see a configuration file

@@ -20,8 +20,8 @@
 
 Summary: H2O - The optimized HTTP/1, HTTP/2 server
 Name: h2o
-Version: 2.2.5
-Release: 2%{?dist}
+Version: 2.2.6
+Release: 1%{?dist}
 URL: https://h2o.examp1e.net/
 Source0: https://github.com/h2o/h2o/archive/v%{version}.tar.gz
 Source1: index.html
@@ -304,6 +304,10 @@ rm -rf $RPM_BUILD_ROOT
 %{_includedir}/h2o
 
 %changelog
+* Wed Aug 14 2019 Ichinose Shogo <shogo82148@gmail.com> - 2.2.6-1
+- This is a bug-fix release of the 2.2 series with following changes from 2.2.5, including a vulnerability fix.
+- [security fix][http2] fix HTTP/2 DoS attack vectors CVE-2019-9512 CVE-2019-9514 CVE-2019-9515 #2090 (Kazuho Oku)
+
 * Wed May  1 2019 Ichinose Shogo <shogo82148@gmail.com> - 2.2.5-2
 - Add amazonlinux2 support
 

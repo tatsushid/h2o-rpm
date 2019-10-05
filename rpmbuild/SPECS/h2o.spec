@@ -61,7 +61,7 @@ H2O is a very fast HTTP server written in C
 %package -n libh2o
 Group: Development/Libraries
 Summary: H2O Library compiled with libuv
-%if 0%{?fedora} >= 22 || 0%{?rhel} >= 7 || 0%{?sle_version} >= 120100
+%if 0%{?fedora} >= 22 || 0%{?rhel} == 7 || 0%{?sle_version} >= 120100
 BuildRequires: libuv-devel >= 1.0.0
 %endif
 

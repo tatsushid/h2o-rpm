@@ -61,7 +61,7 @@ H2O is a very fast HTTP server written in C
 %package -n libh2o
 Group: Development/Libraries
 Summary: H2O Library compiled with libuv
-%if 0%{?fedora} >= 22 || 0%{?rhel} >= 7 || 0%{?sle_version} >= 120100
+%if 0%{?fedora} >= 22 || 0%{?rhel} == 7 || 0%{?sle_version} >= 120100
 BuildRequires: libuv-devel >= 1.0.0
 %endif
 
@@ -308,7 +308,7 @@ rm -rf $RPM_BUILD_ROOT
 - This is a bug-fix release of the 2.2 series with following changes from 2.2.5, including a vulnerability fix.
 - [security fix][http2] fix HTTP/2 DoS attack vectors CVE-2019-9512 CVE-2019-9514 CVE-2019-9515 #2090 (Kazuho Oku)
 
-* Tue May  1 2019 Ichinose Shogo <shogo82148@gmail.com> - 2.2.5-2
+* Wed May  1 2019 Ichinose Shogo <shogo82148@gmail.com> - 2.2.5-2
 - Add amazonlinux2 support
 
 * Fri Jun  1 2018 Tatsushi Demachi <tdemachi@gmail.com> - 2.2.5-1

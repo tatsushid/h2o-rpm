@@ -3,6 +3,7 @@ TARGZ_FILE := h2o.tar.gz
 IMAGE_NAME := h2o-package
 centos6: IMAGE_NAME := $(IMAGE_NAME)-ce6
 centos7: IMAGE_NAME := $(IMAGE_NAME)-ce7
+centos8: IMAGE_NAME := $(IMAGE_NAME)-ce8
 fedora29: IMAGE_NAME := $(IMAGE_NAME)-fc29
 fedora30: IMAGE_NAME := $(IMAGE_NAME)-fc30
 opensuse-leap: IMAGE_NAME := $(IMAGE_NAME)-suse-leap
@@ -13,9 +14,10 @@ LIBUV_ARCHIVE := libuv-$(LIBUV_DOWNLOAD_NAME)
 
 .PHONY: all clean centos6 centos7 fedora opensuse-leap
 
-all: centos6 centos7 fedora29 fedora30 opensuse-leap amazonlinux2
+all: centos6 centos7 centos8 fedora29 fedora30 opensuse-leap amazonlinux2
 centos6: centos6.build
 centos7: centos7.build
+centos8: centos8.build
 fedora29: fedora29.build
 fedora30: fedora30.build
 opensuse-leap: opensuse-leap.build

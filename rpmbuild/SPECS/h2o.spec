@@ -97,7 +97,7 @@ Summary: Development interfaces for H2O
 Requires: openssl-devel, pkgconfig
 Requires: libh2o = %{version}-%{release}
 Requires: libh2o-evloop = %{version}-%{release}
-Obsoletes: h2o-devel
+Obsoletes: h2o-devel <= 1.7.3-1
 
 %description -n libh2o-devel
 libh2o-devel package provides H2O header files and helpers which allow you to
@@ -250,7 +250,7 @@ fi
 %if 0%{?suse_version}
 %service_del_postun h2o.service
 %else
-%systemd_postun
+%systemd_postun h2o.service
 %endif
 %endif
 

@@ -18,6 +18,14 @@
 %endif
 %endif
 
+%if 0%{?rhel} == 6
+  %global bundle_ssl 1
+  %global ssl_option "-DWITH_BUNDLED_SSL=on"
+%else
+  %global bundle_ssl 0
+  %global ssl_option ""
+%endif
+
 Summary: H2O - The optimized HTTP/1, HTTP/2 server
 Name: h2o
 Version: 2.2.6
@@ -64,6 +72,9 @@ Summary: H2O Library compiled with libuv
 %if 0%{?fedora} >= 22 || 0%{?rhel} >= 7 || 0%{?sle_version} >= 120100
 BuildRequires: libuv-devel >= 1.0.0
 %endif
+%if !%{bundle_ssl}
+Requires: openssl
+%endif
 
 %description -n libh2o
 libh2o package provides H2O library compiled with libuv which allows you to
@@ -72,6 +83,9 @@ link your own software to H2O.
 %package -n libh2o-evloop
 Group: Development/Libraries
 Summary: H2O Library compiled with its own event loop
+%if !%{bundle_ssl}
+Requires: openssl
+%endif
 
 %description -n libh2o-evloop
 libh2o-evloop package provides H2O library compiled with its own event loop
@@ -94,7 +108,7 @@ build your own software using H2O.
 %patch1 -p1 -b .c99
 
 %build
-cmake -DWITH_BUNDLED_SSL=on -DWITH_MRUBY=on -DCMAKE_INSTALL_PREFIX=%{_prefix} -DBUILD_SHARED_LIBS=on .
+cmake %{ssl_option} -DWITH_MRUBY=on -DCMAKE_INSTALL_PREFIX=%{_prefix} -DBUILD_SHARED_LIBS=on .
 make %{?_smp_mflags}
 
 %if !%{with_systemd}

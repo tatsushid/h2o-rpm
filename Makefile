@@ -3,17 +3,19 @@ TARGZ_FILE := h2o.tar.gz
 IMAGE_NAME := h2o-package
 centos6: IMAGE_NAME := $(IMAGE_NAME)-ce6
 centos7: IMAGE_NAME := $(IMAGE_NAME)-ce7
+centos8: IMAGE_NAME := $(IMAGE_NAME)-ce8
 fedora: IMAGE_NAME := $(IMAGE_NAME)-fc31
 opensuse-leap: IMAGE_NAME := $(IMAGE_NAME)-suse-leap
 
 LIBUV_DOWNLOAD_NAME := v1.9.1.tar.gz
 LIBUV_ARCHIVE := libuv-$(LIBUV_DOWNLOAD_NAME)
 
-.PHONY: all clean centos6 centos7 fedora opensuse-leap
+.PHONY: all clean centos6 centos7 centos8 fedora opensuse-leap
 
 all: centos6 centos7 fedora opensuse-leap
 centos6: centos6.build
 centos7: centos7.build
+centos8: centos8.build
 fedora: fedora.build
 opensuse-leap: opensuse-leap.build
 
@@ -51,5 +53,6 @@ clean:
 	rm -rf *.build.bak *.build bintray tmp Dockerfile
 	docker images | grep -q $(IMAGE_NAME)-ce6 && docker rmi $(IMAGE_NAME)-ce6 || true
 	docker images | grep -q $(IMAGE_NAME)-ce7 && docker rmi $(IMAGE_NAME)-ce7 || true
+	docker images | grep -q $(IMAGE_NAME)-ce8 && docker rmi $(IMAGE_NAME)-ce8 || true
 	docker images | grep -q $(IMAGE_NAME)-fc31 && docker rmi $(IMAGE_NAME)-fc31 || true
 	docker images | grep -q $(IMAGE_NAME)-suse-leap && docker rmi $(IMAGE_NAME)-suse-leap || true

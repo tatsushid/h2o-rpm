@@ -28,6 +28,11 @@
             "matrixParams": { "override": 1 }
         },
         {
+            "includePattern": "./centos8\.build/RPMS/x86_64/(@PKG_NAME@-@PKG_VERSION@.*\.rpm)",
+            "uploadPattern": "centos/8/x86_64/$1",
+            "matrixParams": { "override": 1 }
+        },
+        {
             "includePattern": "./fedora\.build/RPMS/x86_64/(@PKG_NAME@-@PKG_VERSION@.*\.rpm)",
             "uploadPattern": "fedora/31/x86_64/$1",
             "matrixParams": { "override": 1 }

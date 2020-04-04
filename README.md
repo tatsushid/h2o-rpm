@@ -59,6 +59,7 @@ Now this understands
 
 - centos6
 - centos7
+- centos8
 - fedora
 - opensuse-leap
 

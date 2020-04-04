@@ -318,7 +318,7 @@ rm -rf $RPM_BUILD_ROOT
 %{_includedir}/h2o
 
 %changelog
-* Thu Aug 14 2019 Tatsushi Demachi <tdemachi@gmail.com> - 2.2.6-1
+* Wed Aug 14 2019 Tatsushi Demachi <tdemachi@gmail.com> - 2.2.6-1
 - Update to 2.2.6
 
 * Fri Jun  1 2018 Tatsushi Demachi <tdemachi@gmail.com> - 2.2.5-1

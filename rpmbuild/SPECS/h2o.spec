@@ -194,7 +194,13 @@ if [ -f %{sslkey} -o -f %{sslcert} ]; then
 fi
 
 if [ ! -f %{sslkey} ] ; then
-%{_bindir}/openssl genrsa -rand /proc/apm:/proc/cpuinfo:/proc/dma:/proc/filesystems:/proc/interrupts:/proc/ioports:/proc/pci:/proc/rtc:/proc/uptime 2048 > %{sslkey} 2> /dev/null
+   RANDSRCS=/proc/cpuinfo:/proc/dma:/proc/filesystems:/proc/interrupts:/proc/ioports:/proc/uptime
+   for RANDSRC in /proc/apm /proc/pci /proc/rtc; do
+      if [ -f "$RANDSRC" ]; then
+         RANDSRCS="$RANDSRCS:$RANDSRC"
+      fi
+   done
+   %{_bindir}/openssl genrsa -rand "$RANDSRCS" 2048 > %{sslkey} 2> /dev/null
 fi
 
 FQDN=`hostname`

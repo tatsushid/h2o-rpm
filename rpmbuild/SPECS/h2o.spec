@@ -26,11 +26,11 @@ Patch1: 02-fix-c99-compile-error.patch
 License: MIT
 Group: System Environment/Daemons
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root
-BuildRequires: cmake >= 2.8, gcc-c++, openssl-devel, pkgconfig
-%if 0%{?rhel} == 6
-BuildRequires: rh-ruby24-ruby-devel, bison
+BuildRequires: gcc-c++, openssl-devel, pkgconfig, bison
+%if 0%{?rhel} >= 8
+BuildRequires: cmake
 %else
-BuildRequires: ruby-devel >= 1.9, bison
+BuildRequires: cmake3
 %endif
 Requires: openssl, perl
 BuildRequires: systemd-units
@@ -118,7 +118,6 @@ install -m 644 -p $RPM_SOURCE_DIR/h2o.logrotate \
 
 %post
 %systemd_post h2o.service
-
 
 %preun
 %systemd_preun h2o.service

@@ -74,7 +74,12 @@ build your own software using H2O.
 %patch1 -p1 -b .c99
 
 %build
+%if 0%{?rhel} >= 8
 cmake -DWITH_BUNDLED_SSL=on -DWITH_MRUBY=on -DCMAKE_INSTALL_PREFIX=%{_prefix} -DBUILD_SHARED_LIBS=on .
+%else
+cmake3 -DWITH_BUNDLED_SSL=on -DWITH_MRUBY=on -DCMAKE_INSTALL_PREFIX=%{_prefix} -DBUILD_SHARED_LIBS=on .
+%endif
+
 make %{?_smp_mflags}
 
 

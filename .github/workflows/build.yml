@@ -1,0 +1,43 @@
+name: build
+
+on:
+  pull_request:
+  push:
+  workflow_dispatch:
+  release:
+    types: [published]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        distribution:
+          - amazonlinux2
+          - centos7
+          - centos8
+        platform:
+          - linux/amd64
+          - linux/arm64
+
+    steps:
+      - uses: docker/setup-qemu-action@v1
+      - uses: docker/setup-buildx-action@v1
+      - uses: actions/checkout@v2
+      - name: build
+        run: |
+          make ${{ matrix.distribution }}
+        env:
+          PLATFORM: ${{ matrix.platform }}
+
+      - name: Configure AWS Credentials
+        uses: aws-actions/configure-aws-credentials@v1
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: ap-northeast-1
+      - name: upload
+        if: github.event_name == 'release'
+        run: |
+          make upload

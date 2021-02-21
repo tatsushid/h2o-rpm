@@ -1,59 +1,12 @@
-H2O Unofficial RPM package builder
-==================================
+# H2O Unofficial RPM package builder
 
-[![Build Status](https://travis-ci.com/shogo82148/h2o-rpm.svg?branch=master)](https://travis-ci.com/shogo82148/h2o-rpm)
+[![build](https://github.com/shogo82148/h2o-rpm/actions/workflows/build.yml/badge.svg)](https://github.com/shogo82148/h2o-rpm/actions/workflows/build.yml)
 
 This provides [H2O](https://h2o.examp1e.net/) RPM spec file and required files
-e.g. SysVinit, systemd service etc. to build RPM for Fedora, RHEL/CentOS 6/7,
-OpenSUSE and Amazon Linux 2.
-
-If you search Debian package, please see [h2o-deb](https://github.com/shogo82148/h2o-deb)
+e.g. SysVinit, systemd service etc. to build RPM for Fedora, RHEL/CentOS 7/8,
+and Amazon Linux 2.
 
 ## How to use prebuilt RPM
-
-This has [Bintray RPM repository](https://bintray.com/shogo82148/h2o-rpm) so if
-you'd like to just install such a prebuilt package, please put following into a
-`bintray-shogo82148-h2o-rpm.repo` in `/etc/yum.repos.d`
-
-CentOS:
-
-```ini
-#bintray-shogo82148-h2o-rpm - packages by shogo82148 from Bintray
-[bintray-shogo82148-h2o-rpm]
-name=bintray-shogo82148-h2o-rpm
-#If your system is CentOS
-baseurl=https://dl.bintray.com/shogo82148/h2o-rpm/centos/$releasever/$basearch/
-gpgcheck=0
-repo_gpgcheck=1
-enabled=1
-gpgkey=https://bintray.com/user/downloadSubjectPublicKey?username=shogo82148
-```
-
-Fedora:
-
-```ini
-#bintray-shogo82148-h2o-rpm - packages by shogo82148 from Bintray
-[bintray-shogo82148-h2o-rpm]
-name=bintray-shogo82148-h2o-rpm
-baseurl=https://dl.bintray.com/shogo82148/h2o-rpm/fedora/$releasever/$basearch/
-gpgcheck=0
-repo_gpgcheck=1
-enabled=1
-gpgkey=https://bintray.com/user/downloadSubjectPublicKey?username=shogo82148
-```
-
-Amazon Linux 2:
-
-```ini
-#bintray-shogo82148-h2o-rpm - packages by shogo82148 from Bintray
-[bintray-shogo82148-h2o-rpm]
-name=bintray-shogo82148-h2o-rpm
-baseurl=https://dl.bintray.com/shogo82148/h2o-rpm/amazonlinux2/$releasever/$basearch/
-gpgcheck=0
-repo_gpgcheck=1
-enabled=1
-gpgkey=https://bintray.com/user/downloadSubjectPublicKey?username=shogo82148
-```
 
 Once the file is correctly saved, you can install packages in the repository by
 
@@ -61,76 +14,48 @@ Once the file is correctly saved, you can install packages in the repository by
 yum install h2o
 ```
 
-or if you use Fedora
+### Amazon Linux 2
 
-```bash
-dnf install h2o
+To add unofficial h2o yum repository, create a file named `/etc/yum.repos.d/shogo82148.repo`.
+
+```ini
+# shogo82148-rpm - packages by shogo82148
+[shogo82148-rpm]
+name=shogo82148-rpm
+baseurl=https://shogo82148-rpm-repository.s3-ap-northeast-1.amazonaws.com/amazonlinux/$releasever/$basearch/
+gpgcheck=1
+enabled=1
+gpgkey=https://shogo82148-rpm-repository.s3-ap-northeast-1.amazonaws.com/RPM-GPG-KEY-shogo82148
 ```
 
-## How to build RPM
+Or install the RPM package for configure the repository.
 
-If you have a docker environment, you can build RPMs by just running
-
-```bash
-make
+```
+yum install -y https://shogo82148-rpm-repository.s3-ap-northeast-1.amazonaws.com/amazonlinux/2/noarch/shogo82148/shogo82148-1.0.0-1.amzn2.noarch.rpm
 ```
 
-If you'd like to build RPM for specific distribution, please run a command like
-following
+### CentOS 7 and 8
 
-```bash
-make centos6
+To add unofficial h2o yum repository, create a file named `/etc/yum.repos.d/shogo82148.repo`.
+
+```ini
+# shogo82148-rpm - packages by shogo82148
+[shogo82148-rpm]
+name=shogo82148-rpm
+baseurl=https://shogo82148-rpm-repository.s3-ap-northeast-1.amazonaws.com/centos/$releasever/$basearch/
+gpgcheck=1
+enabled=1
+gpgkey=https://shogo82148-rpm-repository.s3-ap-northeast-1.amazonaws.com/RPM-GPG-KEY-shogo82148
 ```
 
-Now this understands
-
-- centos6
-- centos7
-- fedora
-- opensuse-leap
-- amazonlinux2
-
-build options.
-
-To build RPM in your server without docker, please copy files under
-[`rpmbuild`](https://github.com/shogo82148/h2o-rpm/blob/master/rpmbuild) to your
-build system
-
-## Installing RPM
-
-After building, please copy RPM under `*.build` directory to your system and
-run
+Or install the RPM package for configure the repository.
 
 ```bash
-yum install h2o-2.2.6-1.el6.x86_64.rpm
-```
+# CentOS 7
+yum install -y https://shogo82148-rpm-repository.s3-ap-northeast-1.amazonaws.com/centos/7/noarch/shogo82148/shogo82148-1.0.0-1.el7.noarch.rpm
 
-or if you use Fedora 22 or later
-
-```bash
-dnf install h2o-2.2.6-1.fc29.x86_64.rpm
-```
-
-or if you use OpenSUSE
-
-```bash
-zypper install h2o-2.2.6-1.x86_64.rpm
-```
-
-Once the installation finishes successfully, you can see a configuration file
-at `/etc/h2o/h2o.conf`.
-
-To start h2o, please run
-
-```bash
-service h2o start
-```
-
-or
-
-```bash
-systemctl enable h2o.service
-systemctl start h2o.service
+# CentOS 8
+dnf install -y https://shogo82148-rpm-repository.s3-ap-northeast-1.amazonaws.com/centos/8/noarch/shogo82148/shogo82148-1.0.0-1.el8.noarch.rpm
 ```
 
 ## License

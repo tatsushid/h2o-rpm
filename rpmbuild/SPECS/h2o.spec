@@ -1,12 +1,6 @@
 %define docroot /var/www
 
 %if 0%{?fedora} >= 15 || 0%{?rhel} >= 7
-  %global with_systemd 1
-%else
-  %global with_systemd 0
-%endif
-
-%if 0%{?fedora} >= 15 || 0%{?rhel} >= 7
 %{?perl_default_filter}
 %global __requires_exclude perl\\(VMS|perl\\(Win32|perl\\(Server::Starter
 %else
@@ -26,7 +20,6 @@ URL: https://h2o.examp1e.net/
 Source0: https://github.com/h2o/h2o/archive/v%{version}.tar.gz
 Source1: index.html
 Source2: h2o.logrotate
-Source3: h2o.init
 Source4: h2o.service
 Source5: h2o.conf
 Patch1: 02-fix-c99-compile-error.patch
@@ -40,15 +33,10 @@ BuildRequires: rh-ruby24-ruby-devel, bison
 BuildRequires: ruby-devel >= 1.9, bison
 %endif
 Requires: openssl, perl
-%if %{with_systemd}
 BuildRequires: systemd-units
 Requires(preun): systemd
 Requires(postun): systemd
 Requires(post): systemd
-%else
-Requires: initscripts >= 8.36
-Requires(post): chkconfig
-%endif
 
 %description
 H2O is a very fast HTTP server written in C
@@ -92,10 +80,6 @@ build your own software using H2O.
 cmake -DWITH_BUNDLED_SSL=on -DWITH_MRUBY=on -DCMAKE_INSTALL_PREFIX=%{_prefix} -DBUILD_SHARED_LIBS=on .
 make %{?_smp_mflags}
 
-%if !%{with_systemd}
-sed -i -e 's,\( *\).*systemctl.* >,\1/sbin/service h2o reload >,' %{SOURCE2}
-%endif
-
 
 %install
 rm -rf $RPM_BUILD_ROOT
@@ -113,7 +97,6 @@ install -m 644 -p $RPM_SOURCE_DIR/h2o.conf \
 # Set up /var directories
 mkdir -p $RPM_BUILD_ROOT%{_localstatedir}/log/h2o
 
-%if %{with_systemd}
 # Install systemd service files
 mkdir -p $RPM_BUILD_ROOT%{_unitdir}
 install -m 644 -p $RPM_SOURCE_DIR/h2o.service \
@@ -125,14 +108,6 @@ mkdir -p $RPM_BUILD_ROOT/run/h2o
 mkdir -p $RPM_BUILD_ROOT%{_prefix}/lib/tmpfiles.d
 install -m 644 -p $RPM_SOURCE_DIR/h2o.tmpfiles \
 	$RPM_BUILD_ROOT%{_prefix}/lib/tmpfiles.d/h2o.conf
-%else
-# install SYSV init stuff
-mkdir -p $RPM_BUILD_ROOT%{_sysconfdir}/rc.d/init.d
-install -m 755 -p $RPM_SOURCE_DIR/h2o.init \
-	$RPM_BUILD_ROOT%{_sysconfdir}/rc.d/init.d/h2o
-
-mkdir -p $RPM_BUILD_ROOT%{_localstatedir}/run/h2o
-%endif
 
 # install log rotation stuff
 mkdir -p $RPM_BUILD_ROOT%{_sysconfdir}/logrotate.d
@@ -145,28 +120,14 @@ install -m 644 -p $RPM_SOURCE_DIR/h2o.logrotate \
 %pre
 
 %post
-%if %{with_systemd}
 %systemd_post h2o.service
-%else
-# Register the h2o service
-/sbin/chkconfig --add h2o
-%endif
 
 
 %preun
-%if %{with_systemd}
 %systemd_preun h2o.service
-%else
-if [ $1 = 0 ]; then
-	/sbin/service h2o stop > /dev/null 2>&1
-	/sbin/chkconfig --del h2o
-fi
-%endif
 
 %postun
-%if %{with_systemd}
 %systemd_postun
-%endif
 
 %post -n libh2o -p /sbin/ldconfig
 
@@ -186,15 +147,9 @@ rm -rf $RPM_BUILD_ROOT
 %config(noreplace) %{_sysconfdir}/h2o/h2o.conf
 %config(noreplace) %{_sysconfdir}/logrotate.d/h2o
 
-%if %{with_systemd}
 %{_unitdir}/h2o.service
-%else
-%{_sysconfdir}/rc.d/init.d/h2o
-%endif
 
-%if %{with_systemd}
 %{_prefix}/lib/tmpfiles.d/h2o.conf
-%endif
 
 %{_sbindir}/h2o
 %{_datadir}/h2o/annotate-backtrace-symbols
@@ -210,11 +165,7 @@ rm -rf $RPM_BUILD_ROOT
 %{_datadir}/h2o/ca-bundle.crt
 %{_datadir}/h2o/status
 
-%if %{with_systemd}
 %attr(0770,root,nobody) %dir /run/h2o
-%else
-%attr(0710,root,nobody) %dir %{_localstatedir}/run/h2o
-%endif
 %attr(0700,root,root) %dir %{_localstatedir}/log/h2o
 
 %files -n libh2o

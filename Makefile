@@ -1,12 +1,8 @@
 SOURCE_ARCHIVE := v2.2.6.tar.gz
 TARGZ_FILE := h2o.tar.gz
 IMAGE_NAME := h2o-package
-centos6: IMAGE_NAME := $(IMAGE_NAME)-ce6
-centos7: IMAGE_NAME := $(IMAGE_NAME)-ce7
-centos8: IMAGE_NAME := $(IMAGE_NAME)-ce8
-fedora29: IMAGE_NAME := $(IMAGE_NAME)-fc29
-fedora30: IMAGE_NAME := $(IMAGE_NAME)-fc30
-opensuse-leap: IMAGE_NAME := $(IMAGE_NAME)-suse-leap
+centos7: IMAGE_NAME := $(IMAGE_NAME)-centos7
+centos8: IMAGE_NAME := $(IMAGE_NAME)-centos8
 amazonlinux2: IMAGE_NAME := $(IMAGE_NAME)-amazonlinux2
 
 LIBUV_DOWNLOAD_NAME := v1.28.0.tar.gz
@@ -14,13 +10,9 @@ LIBUV_ARCHIVE := libuv-$(LIBUV_DOWNLOAD_NAME)
 
 .PHONY: all clean centos6 centos7 fedora opensuse-leap
 
-all: centos6 centos7 centos8 fedora29 fedora30 opensuse-leap amazonlinux2
-centos6: centos6.build
+all: centos7 centos8 amazonlinux2
 centos7: centos7.build
 centos8: centos8.build
-fedora29: fedora29.build
-fedora30: fedora30.build
-opensuse-leap: opensuse-leap.build
 amazonlinux2: amazonlinux2.build
 
 rpmbuild/SOURCES/$(SOURCE_ARCHIVE):
@@ -54,8 +46,6 @@ bintray:
 
 clean:
 	rm -rf *.build.bak *.build bintray tmp Dockerfile
-	docker images | grep -q $(IMAGE_NAME)-ce6 && docker rmi $(IMAGE_NAME)-ce6 || true
-	docker images | grep -q $(IMAGE_NAME)-ce7 && docker rmi $(IMAGE_NAME)-ce7 || true
-	docker images | grep -q $(IMAGE_NAME)-fc29 && docker rmi $(IMAGE_NAME)-fc29 || true
-	docker images | grep -q $(IMAGE_NAME)-fc30 && docker rmi $(IMAGE_NAME)-fc29 || true
-	docker images | grep -q $(IMAGE_NAME)-suse-leap && docker rmi $(IMAGE_NAME)-suse-leap || true
+	docker rmi $(IMAGE_NAME)-centos7 || true
+	docker rmi $(IMAGE_NAME)-centos8 || true
+	docker rmi $(IMAGE_NAME)-amazonlinux2 || true

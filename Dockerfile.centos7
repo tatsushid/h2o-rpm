@@ -16,6 +16,7 @@ RUN mkdir -p /tmp/libwslay \
     && cd /tmp/libwslay/ && tar xf libwslay.tar.gz && cd wslay-${LIBWSLAY_VERSION} \
     && ./configure --prefix=/usr --enable-shared="" --disable-shared --with-pic && make && make install
 
+ENV PKG_CONFIG_PATH=/usr/lib/pkgconfig
 RUN rpmdev-setuptree
 RUN echo '%dist   .el7' >> /.rpmmacros
 ADD ./rpmbuild/ /rpmbuild/

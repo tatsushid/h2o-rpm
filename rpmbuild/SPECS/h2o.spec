@@ -26,11 +26,11 @@ Patch1: 02-fix-c99-compile-error.patch
 License: MIT
 Group: System Environment/Daemons
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root
-BuildRequires: cmake >= 2.8, gcc-c++, openssl-devel, pkgconfig
-%if 0%{?rhel} == 6
-BuildRequires: rh-ruby24-ruby-devel, bison
+BuildRequires: gcc-c++, openssl-devel, pkgconfig, bison
+%if 0%{?rhel} >= 8
+BuildRequires: cmake
 %else
-BuildRequires: ruby-devel >= 1.9, bison
+BuildRequires: cmake3
 %endif
 Requires: openssl, perl
 BuildRequires: systemd-units
@@ -44,9 +44,6 @@ H2O is a very fast HTTP server written in C
 %package -n libh2o
 Group: Development/Libraries
 Summary: H2O Library compiled with libuv
-%if 0%{?fedora} >= 22 || 0%{?rhel} == 7 || 0%{?sle_version} >= 120100
-BuildRequires: libuv-devel >= 1.0.0
-%endif
 
 %description -n libh2o
 libh2o package provides H2O library compiled with libuv which allows you to
@@ -77,7 +74,12 @@ build your own software using H2O.
 %patch1 -p1 -b .c99
 
 %build
+%if 0%{?rhel} >= 8
 cmake -DWITH_BUNDLED_SSL=on -DWITH_MRUBY=on -DCMAKE_INSTALL_PREFIX=%{_prefix} -DBUILD_SHARED_LIBS=on .
+%else
+cmake3 -DWITH_BUNDLED_SSL=on -DWITH_MRUBY=on -DCMAKE_INSTALL_PREFIX=%{_prefix} -DBUILD_SHARED_LIBS=on .
+%endif
+
 make %{?_smp_mflags}
 
 
@@ -121,7 +123,6 @@ install -m 644 -p $RPM_SOURCE_DIR/h2o.logrotate \
 
 %post
 %systemd_post h2o.service
-
 
 %preun
 %systemd_preun h2o.service

@@ -95,6 +95,10 @@ mkdir -p $RPM_BUILD_ROOT%{_sysconfdir}/h2o
 install -m 644 -p $RPM_SOURCE_DIR/h2o.conf \
         $RPM_BUILD_ROOT%{_sysconfdir}/h2o/h2o.conf
 
+# docroot
+mkdir -p $RPM_BUILD_ROOT%{docroot}/html
+install -m 644 -p $RPM_SOURCE_DIR/index.html \
+        $RPM_BUILD_ROOT%{docroot}/html/index.html
 
 # Set up /var directories
 mkdir -p $RPM_BUILD_ROOT%{_localstatedir}/log/h2o
@@ -123,6 +127,42 @@ install -m 644 -p $RPM_SOURCE_DIR/h2o.logrotate \
 
 %post
 %systemd_post h2o.service
+
+umask 037
+if [ -f %{sslkey} -o -f %{sslcert} ]; then
+   exit 0
+fi
+
+if [ ! -f %{sslkey} ] ; then
+%{_bindir}/openssl genrsa -rand /proc/apm:/proc/cpuinfo:/proc/dma:/proc/filesystems:/proc/interrupts:/proc/ioports:/proc/pci:/proc/rtc:/proc/uptime 2048 > %{sslkey} 2> /dev/null
+fi
+
+FQDN=`hostname`
+if [ "x${FQDN}" = "x" ]; then
+   FQDN=localhost.localdomain
+fi
+
+if [ ! -f %{sslcert} ] ; then
+cat << EOF | %{_bindir}/openssl req -new -key %{sslkey} \
+         -x509 -sha256 -days 365 -set_serial $RANDOM -extensions v3_req \
+         -out %{sslcert} 2>/dev/null
+--
+SomeState
+SomeCity
+SomeOrganization
+SomeOrganizationalUnit
+${FQDN}
+root@${FQDN}
+EOF
+fi
+
+if [ -f %{sslkey} ]; then
+   chgrp nobody %{sslkey}
+fi
+
+if [ -f %{sslcert} ]; then
+   chgrp nobody %{sslcert}
+fi
 
 %preun
 %systemd_preun h2o.service
@@ -166,6 +206,10 @@ rm -rf $RPM_BUILD_ROOT
 %{_datadir}/h2o/ca-bundle.crt
 %{_datadir}/h2o/status
 
+%dir %{docroot}
+%dir %{docroot}/html
+%config(noreplace) %{docroot}/html/index.html
+
 %attr(0770,root,nobody) %dir /run/h2o
 %attr(0700,root,root) %dir %{_localstatedir}/log/h2o
 
@@ -184,6 +228,9 @@ rm -rf $RPM_BUILD_ROOT
 %{_includedir}/h2o
 
 %changelog
+* Tue Mar 02 2021 Ichinose Shogo <shogo82148@gmail.com> - 2.2.6-3
+- fix broken docroot
+
 * Mon Feb 22 2021 Ichinose Shogo <shogo82148@gmail.com> - 2.2.6-2
 - Bump libuv v1.41.0
 - Bump libwslay v1.1.1

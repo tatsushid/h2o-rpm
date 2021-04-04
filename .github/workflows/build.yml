@@ -17,9 +17,15 @@ jobs:
           - amazonlinux2
           - centos7
           - centos8
+          - almalinux8
         platform:
           - linux/amd64
           - linux/arm64
+
+        exclude:
+          # AlmaLinux doesn't provide arm64 image
+          - distribution: almalinux8
+            platform: linux/arm64
 
     steps:
       - uses: docker/setup-qemu-action@v1

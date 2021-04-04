@@ -2,11 +2,12 @@ SOURCE_ARCHIVE := v2.2.6.tar.gz
 TARGZ_FILE := h2o.tar.gz
 IMAGE_NAME := h2o-package
 
-.PHONY: all clean centos7 centos8 amazonlinux2
+.PHONY: all clean centos7 centos8 almalinux8 amazonlinux2
 
-all: centos7 centos8 amazonlinux2
+all: centos7 centos8 almalinux8 amazonlinux2
 centos7: centos7.build
 centos8: centos8.build
+almalinux8: almalinux8.build
 amazonlinux2: amazonlinux2.build
 
 rpmbuild/SOURCES/$(SOURCE_ARCHIVE):
@@ -26,4 +27,5 @@ clean:
 	rm -rf *.build.bak *.build bintray tmp Dockerfile
 	docker rmi $(IMAGE_NAME)-centos7 || true
 	docker rmi $(IMAGE_NAME)-centos8 || true
+	docker rmi $(IMAGE_NAME)-almalinux8 || true
 	docker rmi $(IMAGE_NAME)-amazonlinux2 || true

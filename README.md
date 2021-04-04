@@ -3,8 +3,7 @@
 [![build](https://github.com/shogo82148/h2o-rpm/actions/workflows/build.yml/badge.svg)](https://github.com/shogo82148/h2o-rpm/actions/workflows/build.yml)
 
 This provides [H2O](https://h2o.examp1e.net/) RPM spec file and required files
-e.g. SysVinit, systemd service etc. to build RPM for Fedora, RHEL/CentOS 7/8,
-and Amazon Linux 2.
+e.g. systemd service etc. to build RPM for RHEL/CentOS 7/8, and Amazon Linux 2.
 
 ## How to use prebuilt RPM
 

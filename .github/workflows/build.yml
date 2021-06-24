@@ -18,14 +18,10 @@ jobs:
           - centos7
           - centos8
           - almalinux8
+          - rockylinux8
         platform:
           - linux/amd64
           - linux/arm64
-
-        exclude:
-          # AlmaLinux doesn't provide arm64 image
-          - distribution: almalinux8
-            platform: linux/arm64
 
     steps:
       - uses: docker/setup-qemu-action@v1
@@ -38,7 +34,7 @@ jobs:
           PLATFORM: ${{ matrix.platform }}
 
       - name: Configure AWS Credentials
-        uses: shogo82148/actions-aws-assume-role@v1
+        uses: fuller-inc/actions-aws-assume-role@v1
         with:
           aws-region: ap-northeast-1
           role-to-assume: arn:aws:iam::445285296882:role/rpm-repository-users-H2ORole-MUDL8E8BJ1VS

@@ -1,4 +1,4 @@
-FROM almalinux/almalinux:8
+FROM almalinux:8
 ENV HOME /
 RUN dnf update -y
 RUN dnf install -y epel-release

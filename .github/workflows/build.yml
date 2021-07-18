@@ -33,6 +33,12 @@ jobs:
         env:
           PLATFORM: ${{ matrix.platform }}
 
+      - name: test
+        run: |
+          make test-${{ matrix.distribution }}
+        env:
+          PLATFORM: ${{ matrix.platform }}
+
       - name: Configure AWS Credentials
         uses: fuller-inc/actions-aws-assume-role@v1
         with:

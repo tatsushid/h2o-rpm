@@ -12,4 +12,4 @@ docker run \
     -v "$ROOT/$H2O_DISTRO.build:/build" \
     --platform "$PLATFORM" \
     "$IMAGE" \
-    sh -c "if command -v dnf; then dnf update -y && dnf --enablerepo powertools install -y \"/build/RPMS/\$(uname -m)/\"*.rpm; else yum update -y && yum install -y \"/build/RPMS/\$(uname -m)/\"*.rpm; fi"
+    sh -c "if command -v dnf; then dnf update -y && dnf --enablerepo powertools install -y \"/build/RPMS/\$(uname -m)/\"*.rpm; else yum update -y; yum install -y epel-release; yum install -y \"/build/RPMS/\$(uname -m)/\"*.rpm; fi"

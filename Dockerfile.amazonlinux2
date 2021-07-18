@@ -1,13 +1,22 @@
 FROM amazonlinux:2
 ENV HOME /
 RUN yum update -y
-RUN yum install -y rpm-build redhat-rpm-config rpmdevtools cmake3 gcc-c++ tar make openssl-devel ruby ruby-devel bison automake libtool git
-
-ENV LIBUV_VERSION=1.41.0
-RUN mkdir -p /tmp/libuv \
-    && curl -sSL https://github.com/libuv/libuv/archive/v${LIBUV_VERSION}.tar.gz -o /tmp/libuv/libuv.tar.gz \
-    && cd /tmp/libuv/ && tar xf libuv.tar.gz && cd libuv-${LIBUV_VERSION} \
-    && sh autogen.sh && ./configure --prefix=/usr --enable-shared="" --disable-shared --with-pic && make && make install
+RUN yum install -y \
+        rpm-build \
+        redhat-rpm-config \
+        rpmdevtools \
+        cmake3 \
+        gcc-c++ \
+        tar \
+        make \
+        openssl-devel \
+        libuv-devel \
+        ruby \
+        ruby-devel \
+        bison \
+        automake \
+        libtool \
+        git
 
 ENV LIBWSLAY_VERSION=1.1.1
 RUN mkdir -p /tmp/libwslay \

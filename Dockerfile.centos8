@@ -1,7 +1,6 @@
 FROM centos:8
 ENV HOME /
 RUN dnf update -y
-RUN dnf install -y epel-release
 RUN dnf install -y \
         rpm-build \
         redhat-rpm-config \

@@ -60,7 +60,7 @@ which allows you to link your own software to H2O.
 %package -n libh2o-devel
 Group: Development/Libraries
 Summary: Development interfaces for H2O
-Requires: openssl-devel, pkgconfig
+Requires: openssl-devel, libuv-devel, pkgconfig
 Requires: libh2o = %{version}-%{release}
 Requires: libh2o-evloop = %{version}-%{release}
 Obsoletes: h2o-devel

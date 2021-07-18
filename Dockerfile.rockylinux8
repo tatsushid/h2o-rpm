@@ -1,14 +1,23 @@
 FROM rockylinux/rockylinux:8
 ENV HOME /
 RUN dnf update -y
-RUN dnf install -y epel-release
-RUN dnf install -y rpm-build redhat-rpm-config rpmdevtools cmake gcc-c++ tar make openssl-devel ruby ruby-devel bison automake libtool git
+RUN dnf install -y \
+        rpm-build \
+        redhat-rpm-config \
+        rpmdevtools \
+        cmake \
+        gcc-c++ \
+        tar \
+        make \
+        openssl-devel \
+        ruby \
+        ruby-devel \
+        bison \
+        automake \
+        libtool \
+        git
 
-ENV LIBUV_VERSION=1.41.0
-RUN mkdir -p /tmp/libuv \
-    && curl -sSL https://github.com/libuv/libuv/archive/v${LIBUV_VERSION}.tar.gz -o /tmp/libuv/libuv.tar.gz \
-    && cd /tmp/libuv/ && tar xf libuv.tar.gz && cd libuv-${LIBUV_VERSION} \
-    && sh autogen.sh && ./configure --prefix=/usr --enable-shared="" --disable-shared --with-pic && make && make install
+RUN dnf --enablerepo powertools install -y libuv-devel
 
 ENV LIBWSLAY_VERSION=1.1.1
 RUN mkdir -p /tmp/libwslay \

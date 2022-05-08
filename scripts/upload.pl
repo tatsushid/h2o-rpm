@@ -37,6 +37,5 @@ sub upload {
 
 upload "amazonlinux2", "amazonlinux/2";
 upload "centos7", "centos/7";
-upload "centos8", "centos/8";
 upload "almalinux8", "almalinux/8";
 upload "rockylinux8", "rockylinux/8";

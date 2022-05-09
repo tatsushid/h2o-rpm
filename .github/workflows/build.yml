@@ -16,7 +16,6 @@ jobs:
         distribution:
           - amazonlinux2
           - centos7
-          - centos8
           - almalinux8
           - rockylinux8
         platform:

@@ -2,6 +2,7 @@ FROM rockylinux/rockylinux:8
 ENV HOME /
 RUN dnf update -y
 RUN dnf install -y \
+        systemd \
         rpm-build \
         redhat-rpm-config \
         rpmdevtools \

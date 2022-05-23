@@ -1,16 +1,7 @@
 %define docroot /var/www
 
-%if 0%{?fedora} >= 15 || 0%{?rhel} >= 7
 %{?perl_default_filter}
 %global __requires_exclude perl\\(VMS|perl\\(Win32|perl\\(Server::Starter
-%else
-%if 0%{?rhel} == 6
-%{?filter_setup:
-%filter_requires_in %{_datadir}
-%filter_setup
-}
-%endif
-%endif
 
 Summary: H2O - The optimized HTTP/1, HTTP/2 server
 Name: h2o

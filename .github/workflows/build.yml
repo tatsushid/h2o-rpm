@@ -15,7 +15,6 @@ jobs:
       matrix:
         distribution:
           - amazonlinux2
-          - centos7
           - almalinux8
           - rockylinux8
         platform:

@@ -3,13 +3,10 @@ TARGZ_FILE := h2o.tar.gz
 IMAGE_NAME := h2o-package
 
 .PHONY: all
-all: amazonlinux2 centos7 almalinux8 rockylinux8
+all: amazonlinux2 almalinux8 rockylinux8
 
 .PHONY: amazonlinux2
 amazonlinux2: amazonlinux2.build
-
-.PHONY: centos7
-centos7: centos7.build
 
 .PHONY: almalinux8
 almalinux8: almalinux8.build
@@ -31,15 +28,11 @@ upload:
 	./scripts/upload.pl
 
 .PHONY: test
-test: test-amazonlinux2 test-centos7 test-almalinux8 test-rockylinux8
+test: test-amazonlinux2 test-almalinux8 test-rockylinux8
 
 .PHONY: test-amazonlinux2
 test-amazonlinux2:
 	./scripts/test.sh amazonlinux2
-
-.PHONY: test-centos7
-test-centos7:
-	./scripts/test.sh centos7
 
 .PHONY: test-almalinux8
 test-almalinux8:
@@ -53,7 +46,6 @@ test-rockylinux8:
 clean:
 	rm -rf *.build.bak *.build bintray
 	rm -f rpmbuild/SOURCES/v*.tar.gz
-	docker rmi $(IMAGE_NAME)-centos7 || true
 	docker rmi $(IMAGE_NAME)-almalinux8 || true
 	docker rmi $(IMAGE_NAME)-amazonlinux2 || true
 	docker rmi $(IMAGE_NAME)-rockylinux8 || true
